@@ -1,6 +1,7 @@
 ---
 layout: post
 title: defaultdoc
+identifier: node
 permalink: /docs/
 ---
 
