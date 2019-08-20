@@ -7,7 +7,7 @@
   <ul class="listing">
       {% for p in site.posts %}
         <li>
-          <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a>
+          <a href="{{ p.url }}">{{ p.title }}</a>
         </li>
       {% endfor %}
     </ul>
@@ -15,3 +15,5 @@
   {%- endif -%}
 
 </div>
+
+ <!-- <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a> -->
