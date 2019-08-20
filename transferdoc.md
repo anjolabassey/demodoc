@@ -1,7 +1,7 @@
 ---
 layout: post
 title: transfer
-permalink: /docs/transferdoc
+permalink: /docs/transferdoc/
 ---
 
 <div id="content">

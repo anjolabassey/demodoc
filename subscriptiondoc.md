@@ -1,7 +1,7 @@
 ---
 layout: post
 title: subscription
-permalink: /docs/subscriptiondoc
+permalink: /docs/subscriptiondoc/
 ---
 
 <div id="content">
