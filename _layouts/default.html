@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body>
+
+    <header class="mainHeader">
+    <img src="..{{site.baseurl}}/assets/img/flw_icon.svg" alt="flutterwave" />
+
+    <div class="searchWrapper" >
+        <i class="fa fa-search searchIcon"></i>
+        <input class="searchBox" type="search" name="search" placeholder="Search the documentation">
+    </div>
+
+
+  <div class="post-list" id="search-hits">
+    {% for post in site.posts %}
+      <div class="post-item">
+        {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h2>
+
+        <div class="post-snippet">{{ post.excerpt }}</div>
+      </div>
+    {% endfor %}
+  </div>
+        {% include algolia.html %}
+
+    <div class="header-nav">
+    
+        <a href="https://support.flutterwave.com" class="headerLink">Support</a>
+        <a href="" class="headerLink">Blog</a>
+        <button class="headerButton" id="login">Get API Keys</button>
+            
+    </div>
+</header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+    <script src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+
+  </body>
+
+</html>

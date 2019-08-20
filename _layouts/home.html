@@ -1,0 +1,204 @@
+---
+layout: default
+---
+ 
+
+<div class="heroWrapper">
+  <div class="hero">
+    <div class="banner">
+      <div class="text-box">
+        <p id="title">Flutterwave for Developers</p>
+        <p id="text">
+          Fastest way to learn how to integrate our APIs to your products. You
+          are covered with everything from SDKs in your preferred language to
+          sample apps for Web and Mobile.
+        </p>
+      </div>
+      <div class="button-row">
+         <button class="apiKeyButton" id="login">Get API Keys</button>
+        <a href="https://flutterwave.slack.com/archives/DH623D7AS/p1558451971000200">
+          <button id="slack">
+            <p>Contact A Developer</p>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contentWrapper">
+<div class="features">
+    <p id="title-text"><b>What do you want to do?</b></p>
+    <hr>
+    <div class="feat-row">
+        <div class="card">
+            <a href="{{site.baseurl}}/tech">
+                <img src="..{{site.baseurl}}/assets/img/payments.svg" />
+                <div class="card-body">
+                    <p><b>Payments</b></p>
+                    <p>Payment links allow merchants accept payments on their site without the need to integrate. This is great for Individuals and merchants who don't have developer resources..</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{site.baseurl}}/docs/subscriptiondoc">
+                <img src="..{{site.baseurl}}/assets/img/subscriptions.svg" alt="" />
+                <div class="card-body">
+                    <p><b>Subscriptions</b></p>
+                    <p>Payment links allow merchants accept payments on their site without the need to integrate. This is great for Individuals and merchants who don't have developer resources.</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{site.baseurl}}/docs/transferdoc" class="" id="transfers">
+                <img src="..{{site.baseurl}}/assets/img/transfers.svg" alt="" />
+                <div class="card-body">
+                    <p><b>Transfers</b></p>
+                    <p>Payment links allow merchants accept payments on their site without the need to integrate. This is great for Individuals and merchants who don't have developer resources..</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="feat-row">
+        <div class="card">
+            <a href="{{site.baseurl}}/docs">
+                <img src="..{{site.baseurl}}/assets/img/split-payment.svg" alt="" />
+                <div class="card-body">
+                    <p><b>Split Payment</b></p>
+                    <p>Rave's split payment feature allows you split a transaction between two (2) or more accounts and collect fees on the transaction.</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{site.baseurl}}/docs.html">
+                <img src="..{{site.baseurl}}/assets/img/bills.svg" alt="" />
+                <div class="card-body">
+                    <p><b>Bills Payment/ Airtime Purchase</b></p>
+                    <p>Payment links allow merchants accept payments  on their site without the need to integrate. This is great for Individuals and merchants who don't have developer resources.</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{site.baseurl}}/docs.html">
+                <img src="..{{site.baseurl}}/assets/img/identity.svg" alt="" />
+                <div class="card-body">
+                    <p><b>Identity Verfication</b></p>
+                    <p>Rave allows you to verify customer's BVN and perform KYC.</p>
+                </div>
+                <div class="card-footer">
+                    <p>View Documentation</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="tryWrapper">
+    <p id="one">Try it now by</p>
+    <p id="two">Try the Rave API in seconds. Charge a card, tokenize a card, create
+                a subscription and more by following the steps below.</p>
+    <div class="try">
+        <div class="tryHeader">
+            <div id="nav">
+                <p id="charge" class="text-current"><span class="trynow-current">1</span>Charge card</p>
+                <p id="verify" class="text-waiting"><span class="trynow-waiting">2</span>Verify</p>
+                <p id="paymentplan" class="text-waiting"><span class="trynow-waiting">3</span>Create Payment Plan</p>
+                <p id="tokenize" class="text-waiting"><span class="trynow-waiting">4</span>Tokenized Recurring Charge</p>
+                <p id="success" class="text-waiting"><span class="trynow-waiting">5</span>Success!</p>
+            </div>
+            <p id="banner">You can embed rave on your page using the getpaidSetup function. Enter any of our test card details on our inline modal </p>      
+        </div>
+                
+        <div class="codebox">
+            <pre>
+
+                function payWithRave() {
+                var x = getpaidSetup({
+                PBFPubKey: API_publicKey,
+                customer_email: "user@example.com",
+                amount: 2000,
+                currency: "NGN",
+                txref: "rave-123456",
+                onclose: function() {},
+                callback: function(response) {
+                var txref = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
+                console.log("This is the response returned after a charge", response);
+                if (response.tx.chargeResponseCode == "00" ||
+                response.tx.chargeResponseCode == "0") {
+                    // redirect to a success page
+                    } else {
+                    // redirect to a failure page.
+                    }
+            
+                    x.close(); // use this to close the modal immediately after payment.
+                    }
+                    });
+                }
+            </pre> 
+
+            <button id="pay" class="btn show">Test payment</button>
+                    
+        </div>                 
+    </div>
+            
+</div>
+
+<div class="guides-section">
+    <p id="title">Guides and Resources</p>
+    <p id="sub-title">Learn and explore best practices and the different ways to work with the Rave APIs to enable
+    amazing ways to innovate.</p>
+    <div class="guides">
+        <div class="card">
+            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
+            <div class="card-body">
+                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
+                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
+                accumen pulvinar.</p>
+            </div>
+            <div class="card-footer">
+                <p>Read More...</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
+            <div class="card-body">
+                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
+                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
+                accumen pulvinar.</p>
+            </div>
+            <div class="card-footer">
+                <p>Read More...</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
+            <div class="card-body">
+                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
+                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
+                            accumen pulvinar.</p>
+            </div>
+            <div class="card-footer">
+                <p>Read More...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include helpful.html %}
+
+</div>
