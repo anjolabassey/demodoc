@@ -58,6 +58,103 @@ header:
     identifier: node
     url: /node/transfers/goinglive.md
     category: transfer
+  
+  - title: Overview
+    identifier: node
+    url: /node/transfers/overview.md
+    category: transfer
+
+  - title: Quick Start 
+    identifier: node
+    url: /node/transfers/quickstart.md
+    category: transfer
+
+  - title: Completing a transfer 
+    identifier: node
+    category: transfer
+    subfolderitems:
+      - title: Single Transfers
+        identifier: node
+        url: /node/transfers/singletransfer.md
+        category: transfer
+      
+      - title: Bulk transfers
+        identifier: node
+        url: /node/transfers/bulktransfer.md
+        category: transfer
+        
+
+  - title: Going Live.
+    identifier: node
+    url: /node/transfers/goinglive.md
+    category: transfer
+    
+    
+    
+  - title: Overview
+    identifier: node
+    url: /node/transfers/overview.md
+    category: transfer
+
+  - title: Quick Start 
+    identifier: node
+    url: /node/transfers/quickstart.md
+    category: transfer
+
+  - title: Completing a transfer 
+    identifier: node
+    category: transfer
+    subfolderitems:
+      - title: Single Transfers
+        identifier: node
+        url: /node/transfers/singletransfer.md
+        category: transfer
+      
+      - title: Bulk transfers
+        identifier: node
+        url: /node/transfers/bulktransfer.md
+        category: transfer
+        
+
+  - title: Going Live.
+    identifier: node
+    url: /node/transfers/goinglive.md
+    category: transfer
+
+
+  - title: Overview
+    identifier: node
+    url: /node/transfers/overview.md
+    category: transfer
+
+  - title: Quick Start (python) 
+    identifier: python
+    url: /node/transfers/quickstart.md
+    category: transfer
+
+  - title: Completing a transfer (python)
+    identifier: python
+    category: transfer
+    subfolderitems:
+      - title: Single Transfers (python)
+        identifier: python
+        url: /node/transfers/singletransfer.md
+        category: transfer
+      
+      - title: Bulk transfers (python)
+        identifier: python
+        url: /node/transfers/bulktransfer.md
+        category: transfer
+        
+
+  - title: Going Live (python).
+    identifier: python
+    url: /node/transfers/goinglive.md
+    category: transfer
+    
+    
+    
+    
     
     
     
