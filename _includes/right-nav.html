@@ -7,7 +7,7 @@
   <ul class="listing">
       {% for p in site.posts %}
         <li>
-          <a href="{{ p.url }}">{{ p.title }}</a>
+          <a href="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.url }}</a>
         </li>
       {% endfor %}
     </ul>
