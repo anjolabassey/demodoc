@@ -1,13 +1,13 @@
 ---
-layout: post
-title: subscription
-permalink: /docs/subscriptiondoc/
+layout: splitpayment
+title: splitpayment
+permalink: /splitpayment/
 ---
 
 <div id="content">
 </div>
 
-Getting Started With The Nodejs SDK on subscription
+Getting Started With The Nodejs SDK on transfer
 ==================
 The official Nodejs SDK for making both Account and Card charges
 

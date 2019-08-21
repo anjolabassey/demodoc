@@ -690,7 +690,7 @@ textarea:focus, input:focus{
   flex-direction: column;
   font-family: SFProDisplay;
 }
-.left-nav p {
+.left-nav a {
   color: #637381;
   margin-bottom: 2px;
   text-align: right;

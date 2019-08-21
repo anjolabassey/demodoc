@@ -1,16 +1,23 @@
-<div class="left-nav">
-  <p><i class="fas fa-angle-left">Back</i></p>
+---
+layout: default
+---
+
+
+<div class="docContainer" itemscope itemtype="http://schema.org/BlogPosting">
+  
+  <div class="left-nav">
+  <a href="{{ site.url }}{{ site.baseurl }}"><i class="fas fa-angle-left">Back</i></a>
 
   <div class="home">
     {%- if page.categories -%}
     <h1 class="page-heading">{{ page.categories }}</h1>
     {%- endif -%}
 
-    <h1 class="page-heading">{{ page.title }}</h1>
+    <h1 class="page-heading">{{ page.identifier }}</h1>
 
     <ul class="listing">
       
-      {% for item in site.data.menus.header %}
+      {% for item in site.data.bills.header %}
     
     
       
@@ -44,4 +51,30 @@
       {% endfor %}
     </ul>
   </div>
+</div>
+
+
+  <div class="doc-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  { <div class="right-nav">
+    <p>TECHNOLOGIES</p>
+
+    <ul class="listing">
+      {% for p in site.posts %} {% if p.layout == "bills" %}
+      <li>
+        <a href="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
+  </div>
+
+</div>
+
+<div class="doc-help">
+    {% include needhelp.html %}
+</div>
+<div id="inputContainer">
+
 </div>

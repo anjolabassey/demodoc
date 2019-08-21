@@ -1,14 +1,14 @@
 ---
-layout: post
-title: defaultdoc
+layout: bills
+title: bills
 identifier: node
-permalink: /docs/
+permalink: /bills/
 ---
 
 <div id="content">
 </div>
 
-Getting Started With The Nodejs SDK
+Getting Started With The Nodejs SDK on bills
 ==================
 The official Nodejs SDK for making both Account and Card charges
 

@@ -1,13 +1,14 @@
 ---
-layout: post
+layout: transfer
 title: transfer
-permalink: /docs/transferdoc/
+identifier: node
+permalink: /transfer/
 ---
 
 <div id="content">
 </div>
 
-Getting Started With The Nodejs SDK on trnasfer
+Getting Started With The Nodejs SDK on transfer
 ==================
 The official Nodejs SDK for making both Account and Card charges
 
