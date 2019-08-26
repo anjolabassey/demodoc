@@ -4,9 +4,9 @@ layout: default
 
 <div class="docContainer" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="left-nav">
-    <a href="{{ site.url }}{{ site.baseurl }}"
-      ><i class="fas fa-angle-left">Back</i></a
-    >
+    <a href="{{ site.url }}{{ site.baseurl }}">
+      <i class="fas fa-angle-left">Back</i>
+    </a>
 
     <div class="home">
       {%- if page.categories -%}
@@ -23,11 +23,8 @@ layout: default
 
           <a
             class="get-content"
-            id="{{ item.url }}"
-            href=""
-            title="Go to {{ item.title }}"
-            >{{ item.title }}</a
-          >
+            id="{{ item.url }}" href="" 
+            title="Go to {{ item.title }}">{{ item.title }}</a>
           <ul class="sublisting">
             {% for entry in item.subfolderitems %}
             <li>
@@ -35,22 +32,9 @@ layout: default
                 class="get-content"
                 id="{{ item.url }}"
                 href=""
-                title="Go to {{ item.title }}"
-                >{{ entry.title }}</a
-              >
-              <ul class="sublisting">
-                {% for li in entry.subfolderitems %}
-                <li>
-                  <a
-                    class="get-content"
-                    id="{{ item.url }}"
-                    href=""
-                    title="Go to {{ item.title }}"
-                    >{{ li.title }}</a
-                  >
-                </li>
-                {% endfor %}
-              </ul>
+                title="Go to {{ item.title }}">{{ entry.title }}</a>
+
+              
             </li>
             {% endfor %}
           </ul>
@@ -68,13 +52,12 @@ layout: default
   <div class="right-nav">
     <p>TECHNOLOGIES</p>
 
-    <ul class="listing">
+    <select name="sdk" class="listing" onchange="location = this.value;">
       {% for p in site.posts %} {% if p.layout == "transfer" %}
-      <li>
-        <a href="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
-      </li>
-      {% endif %} {% endfor %}
-    </ul>
+      <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</option>
+       {% endif %} {% endfor %}
+     
+    </select>
   </div>
 
   <!-- <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a> -->

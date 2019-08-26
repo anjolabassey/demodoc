@@ -1,5 +1,4 @@
-$(document).ready(function () {
-
+$(document).ready(function() {
   let contentHolder = $("#content");
   let user;
   let flwAuthToken;
@@ -7,7 +6,6 @@ $(document).ready(function () {
   let API_secretKey;
   let loginButton = $("#login");
   let getKeys = $("#submit");
-  
 
   var copyButton = $("<button/>", {
     text: "Copy",
@@ -51,45 +49,72 @@ $(document).ready(function () {
       } else {
         console.log("not here");
       }
+
       var copyText = $("#copied");
 
       copyText.select();
       document.execCommand("copy");
       copyArea.remove();
     });
-  
-  $(".feat-row").on("click", ".feature-identity", function(e) {
-    var feature = $(this).attr("id");
-    console.log(feature);
-
-  });
 
   $(".left-nav").on("click", ".get-content", function(e) {
     e.preventDefault();
     var addedUrl = $(this).attr("id");
+
+    $(this).addClass("active");
 
     $.ajax({
       url:
         "https://api.github.com/repos/anjolabassey/test-docs/contents" +
         addedUrl,
       type: "get",
-      success: function (data) {
+      success: function(data) {
         console.log(data);
         // let con = atob(response.content);
         let con = b64DecodeUnicode(data.content);
-        
-       
+
         // If you're in the browser, the Remarkable class is already available in the window
         var md = new Remarkable({
           html: true
         });
 
-        // Outputs: <h1>Remarkable rulezz!</h1>
-        // console.log(md.render("# Remarkable rulezz!"));
-
         $(".doc-content").html(md.render(con));
-      
-        
+
+        // console.log($("pre").html());
+        $("pre").addClass("highlight");
+        // $("pre").prepend('<button class"copy-btn"> Copy </button>').click("", function () {
+        //   console.log("clicked");
+        // });
+
+        // Append copy buttons to all code sinppets on document ready
+        $(".highlight")
+          .append(copyButton)
+          .click(".copy-btn", function() {
+            $("#inputContainer").append(copyArea);
+            var content = $(this)
+              .text()
+              .slice(0, -4);
+
+            $("#copied").val(content);
+
+            var pub = content.search("pin");
+            var sec = content.search("ravepay");
+            if (pub > 0) {
+              content = content.replace("pin", "newpin");
+              $("#copied").val(content);
+            } else if (sec > 0) {
+              content = content.replace("ravepay", "newRavepay");
+              $("#copied").val(content);
+            } else {
+              console.log("not here");
+            }
+
+            var copyText = $("#copied");
+
+            copyText.select();
+            document.execCommand("copy");
+            copyArea.remove();
+          });
       },
       error: function(xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
@@ -98,6 +123,22 @@ $(document).ready(function () {
     });
   });
 
+  // displaying search modal when seach bar is clicked
+  $(".searchWrapper").click(function () {
+    
+    $(".searchModal").removeClass("hide");
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  $(document).on("click", function (event) {
+    console.log(event.target.className);
+    console.log($(".searchModal"))
+    if (event.target == $(".searchModal")) {
+      $(".searchModal").addClass("hide");
+    }
+  });
+
+  // Decoding string from github API response
   function b64DecodeUnicode(str) {
     // Going backwards: from bytestream, to percent-encoding, to original string.
     return decodeURIComponent(

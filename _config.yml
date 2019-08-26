@@ -35,7 +35,10 @@ algolia:
   index_name: jekyll
   search_only_api_key: bbe47e4c70c044ec350b2f405188bcb1
 
-# plugins
+# plugins_dir: ./_scripts
+
+# plugins:
+#   - subnav.rb
 # plugins:
 #   - jekyll-menus
 #   - jekyll_get

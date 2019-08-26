@@ -3,14 +3,24 @@
   {%- include head.html -%}
   <body>
 
-    <header class="mainHeader">
-    <img src="..{{site.baseurl}}/assets/img/flw_icon.svg" alt="flutterwave" />
+    {%- include header.html -%}
 
-    <div class="searchWrapper" >
-        <i class="fa fa-search searchIcon"></i>
-        <input class="searchBox" type="search" name="search" placeholder="Search the documentation">
-    </div>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
 
+    {%- include footer.html -%}
+
+    <div class="searchModal hide">
+      <div class="searchModalContent">
+
+      
+
+   
+    
+  <div id="search-searchbar"></div>
 
   <div class="post-list" id="search-hits">
     {% for post in site.posts %}
@@ -28,24 +38,10 @@
       </div>
     {% endfor %}
   </div>
-        {% include algolia.html %}
 
-    <div class="header-nav">
-    
-        <a href="https://support.flutterwave.com" class="headerLink">Support</a>
-        <a href="" class="headerLink">Blog</a>
-        <button class="headerButton" id="login">Get API Keys</button>
-            
-    </div>
-</header>
-
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </main>
-
-    {%- include footer.html -%}
+  {% include algolia.html %}
+  </div>
+  </div>
 
     <script src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>

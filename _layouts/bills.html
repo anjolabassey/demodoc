@@ -61,13 +61,12 @@ layout: default
   { <div class="right-nav">
     <p>TECHNOLOGIES</p>
 
-    <ul class="listing">
-      {% for p in site.posts %} {% if p.layout == "bills" %}
-      <li>
-        <a href="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
-      </li>
-      {% endif %} {% endfor %}
-    </ul>
+    <select name="sdk" class="listing" onchange="location = this.value;">
+      {% for p in site.posts %} {% if p.layout == "transfer" %}
+      <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</option>
+       {% endif %} {% endfor %}
+     
+    </select>
   </div>
 
 </div>
