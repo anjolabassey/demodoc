@@ -58,6 +58,13 @@ layout: default
        {% endif %} {% endfor %}
      
     </select>
+
+    <hr>
+    <div id="log"></div>
+
+    {% for item in page.subnav %}
+      <a href="{{ item.url }}">{{ item.title }}</a>
+    {% endfor %}
   </div>
 
   <!-- <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a> -->

@@ -38,8 +38,6 @@ algolia:
 # plugins_dir: ./_scripts
 
 # plugins:
-#   - subnav.rb
-# plugins:
 #   - jekyll-menus
 #   - jekyll_get
 

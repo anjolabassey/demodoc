@@ -1077,6 +1077,9 @@ h6 {
 }
 .searchModalContent {
   background-color: #fefefe;
+  box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 19px 80px;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;

@@ -69,7 +69,6 @@ $(document).ready(function() {
         addedUrl,
       type: "get",
       success: function(data) {
-        console.log(data);
         // let con = atob(response.content);
         let con = b64DecodeUnicode(data.content);
 
@@ -79,12 +78,32 @@ $(document).ready(function() {
         });
 
         $(".doc-content").html(md.render(con));
+        $(".doc-content H2").attr("name", "h2");
+
+        // console.log(md.render(con));
 
         // console.log($("pre").html());
         $("pre").addClass("highlight");
         // $("pre").prepend('<button class"copy-btn"> Copy </button>').click("", function () {
         //   console.log("clicked");
         // });
+
+          html = $.parseHTML(md.render(con)),
+          nodeNames = [];      
+
+        $.each(html, function (i, el) {
+          console.log(el.nodeName);
+          if (el.nodeName == "H2") {
+            nodeNames[i] = '<li class="listing" href="#h2">' + el.innerText + "</li>";
+          }
+         
+        });
+        console.log(html)
+
+        $("#log").append("<h4>TABLE OF CONTENTS</h4>");
+        $("<ol></ol>")
+          .append(nodeNames.join(""))
+          .appendTo("#log");
 
         // Append copy buttons to all code sinppets on document ready
         $(".highlight")
@@ -124,15 +143,14 @@ $(document).ready(function() {
   });
 
   // displaying search modal when seach bar is clicked
-  $(".searchWrapper").click(function () {
-    
+  $(".searchWrapper").click(function() {
     $(".searchModal").removeClass("hide");
   });
 
   // When the user clicks anywhere outside of the modal, close it
-  $(document).on("click", function (event) {
-    console.log(event.target.className);
-    console.log($(".searchModal"))
+  $(document).on("click", function(event) {
+    // console.log(event.target.className);
+    // console.log($(".searchModal"))
     if (event.target == $(".searchModal")) {
       $(".searchModal").addClass("hide");
     }
