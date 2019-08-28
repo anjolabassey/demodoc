@@ -57,7 +57,8 @@ $(document).ready(function() {
       copyArea.remove();
     });
 
-  $(".left-nav").on("click", ".get-content", function(e) {
+  $(".left-nav").on("click", ".get-content", function (e) {
+    $("#log").html("");
     e.preventDefault();
     var addedUrl = $(this).attr("id");
 
@@ -78,27 +79,22 @@ $(document).ready(function() {
         });
 
         $(".doc-content").html(md.render(con));
-        $(".doc-content H2").attr("name", "h2");
+        $(".doc-content H2").attr("id", "h2");
 
         // console.log(md.render(con));
 
         // console.log($("pre").html());
         $("pre").addClass("highlight");
-        // $("pre").prepend('<button class"copy-btn"> Copy </button>').click("", function () {
-        //   console.log("clicked");
-        // });
 
           html = $.parseHTML(md.render(con)),
           nodeNames = [];      
 
         $.each(html, function (i, el) {
-          console.log(el.nodeName);
           if (el.nodeName == "H2") {
-            nodeNames[i] = '<li class="listing" href="#h2">' + el.innerText + "</li>";
+            nodeNames[i] = '<li class="listing"><a href="#h2">' + el.innerText + "</li></a>";
           }
          
         });
-        console.log(html)
 
         $("#log").append("<h4>TABLE OF CONTENTS</h4>");
         $("<ol></ol>")
