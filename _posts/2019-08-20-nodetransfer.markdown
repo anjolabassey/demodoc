@@ -8,6 +8,11 @@ identifier: node
 ## node transfer overview
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
+## image from jekyll post
+![Alt text](https://about.canva.com/wp-content/uploads/sites/3/2016/08/Band-Logo.png)
+
+![3D FLOW](/assets/img/bills.svg)
+
 ## hbeiuhrkenj
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 

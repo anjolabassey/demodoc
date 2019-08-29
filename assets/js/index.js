@@ -152,6 +152,12 @@ $(document).ready(function() {
     }
   });
 
+  $(".modal-close").click(function () {
+    console.log("gvh");
+    $(".searchModal").removeClass("show");
+    $(".searchModal").addClass("hide");
+  });
+
   // Decoding string from github API response
   function b64DecodeUnicode(str) {
     // Going backwards: from bytestream, to percent-encoding, to original string.

@@ -1087,6 +1087,19 @@ h6 {
   overflow-x: auto;
   max-height: 500px;
 }
+.modal-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 .ais-search-box--powered-by {
   display: none;
 }
