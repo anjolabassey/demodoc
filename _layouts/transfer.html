@@ -54,6 +54,7 @@ layout: default
 
     <select name="sdk" class="listing" onchange="location = this.value;">
       {% for p in site.posts %} {% if p.layout == "transfer" %}
+      <!-- <option value="">Please select a technology</option> -->
       <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</option>
        {% endif %} {% endfor %}
      

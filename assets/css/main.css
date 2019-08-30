@@ -1081,7 +1081,7 @@ h6 {
   border-radius: 4px;
   padding: 19px 80px;
   margin: auto;
-  padding: 20px;
+  padding: 5px 20px 20px 20px;
   border: 1px solid #888;
   width: 50%;
   overflow-x: auto;
@@ -1090,7 +1090,7 @@ h6 {
 .modal-close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
 }
 

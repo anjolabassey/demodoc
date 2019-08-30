@@ -141,6 +141,8 @@ $(document).ready(function() {
   // displaying search modal when seach bar is clicked
   $(".searchWrapper").click(function() {
     $(".searchModal").removeClass("hide");
+    $(".searchBox").blur();
+    $(".ais-search-box--input").focus();
   });
 
   // When the user clicks anywhere outside of the modal, close it
@@ -173,7 +175,7 @@ $(document).ready(function() {
 
   loginButton.click(function() {
     window.open(
-      "/login",
+      "{{site.baseurl}}/login",
       null,
       "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no"
     );
