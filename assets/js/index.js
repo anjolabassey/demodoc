@@ -200,10 +200,14 @@ $(document).ready(function() {
       $("#password").after('<span class="error">This field is required</span>');
     }
 
+
     let requestObject = {
       identifier: email,
       password: password
     };
+
+    getKeys.text("Fetching your test keys");
+    getKeys.attr("disabled", true);
 
     var loggedIn = $.ajax({
       url: "https://api.ravepay.co/login",
@@ -244,7 +248,7 @@ $(document).ready(function() {
       }
     });
 
-    loggedIn.done(function() {
+    loggedIn.done(function () {
       $.ajax({
         url: "https://api.ravepay.co/merchant/accounts/update",
         type: "post",
