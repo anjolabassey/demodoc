@@ -23,8 +23,11 @@ layout: default
 
           <a
             class="get-content"
-            id="{{ item.url }}" href="" 
-            title="Go to {{ item.title }}">{{ item.title }}</a>
+            id="{{ item.url }}"
+            href=""
+            title="Go to {{ item.title }}"
+            >{{ item.title }}</a
+          >
           <ul class="sublisting">
             {% for entry in item.subfolderitems %}
             <li>
@@ -32,9 +35,9 @@ layout: default
                 class="get-content"
                 id="{{ item.url }}"
                 href=""
-                title="Go to {{ item.title }}">{{ entry.title }}</a>
-
-              
+                title="Go to {{ item.title }}"
+                >{{ entry.title }}</a
+              >
             </li>
             {% endfor %}
           </ul>
@@ -53,18 +56,20 @@ layout: default
     <p>TECHNOLOGIES</p>
 
     <select name="sdk" class="listing" onchange="location = this.value;">
+      <option value="">Select Technology</option>
       {% for p in site.posts %} {% if p.layout == "transfer" %}
-      <!-- <option value="">Please select a technology</option> -->
-      <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{ p.title }}</option>
-       {% endif %} {% endfor %}
-     
+
+      <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{
+        p.title
+      }}</option>
+      {% endif %} {% endfor %}
     </select>
 
-    <hr>
+    <hr />
     <div id="log"></div>
 
     {% for item in page.subnav %}
-      <a href="{{ item.url }}">{{ item.title }}</a>
+    <a href="{{ item.url }}">{{ item.title }}</a>
     {% endfor %}
   </div>
 
