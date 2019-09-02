@@ -174,11 +174,11 @@ $(document).ready(function() {
   }
 
   loginButton.click(function() {
-    window.open(
-      "{{site.baseurl}}/login",
-      null,
-      "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no"
-    );
+    // window.open(
+    //   "{{site.baseurl}}/login",
+    //   null,
+    //   "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no"
+    // );
 
     keyObject = window.localStorage.getItem("liveKeys");
   });

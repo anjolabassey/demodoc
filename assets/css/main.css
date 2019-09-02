@@ -37,6 +37,8 @@ body {
   height: 40px;
   margin-top: 10px;
   overflow: hidden;
+  border-radius: 20.25px;
+  background: red;
 }
 .searchIcon {
   position: absolute;
@@ -51,6 +53,9 @@ body {
   border-radius: 20.25px;
   width: 513px;
   height: 40px;
+  -webkit-appearance: none; 
+  
+
   padding: 0 24px;
   font-family: F-Wave-Regular;
 }
@@ -71,6 +76,7 @@ body {
 }
 .headerButton {
   background: #f5a623;
+  border: none;
   border-radius: 6px;
   color: #ffffff;
   font-family: Open-Sans;
@@ -78,7 +84,6 @@ body {
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
-  width: 128px;
   height: 45px;
   padding: 13px 21px;
 }
