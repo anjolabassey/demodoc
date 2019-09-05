@@ -21,7 +21,7 @@ layout: default
          
         <a href="https://flutterwave.slack.com/archives/DH623D7AS/p1558451971000200">
           <button id="slack">
-            <p>Contact A Developer</p>
+            <p>Get help</p>
           </button>
         </a>
       </div>
@@ -112,7 +112,7 @@ layout: default
 </div>
 
 <div class="tryWrapper">
-    <p id="one">Try it now by</p>
+    <p id="one">Add Rave to your project</p>
     <p id="two">Try the Rave API in seconds. Charge a card, tokenize a card, create
                 a subscription and more by following the steps below.</p>
     <div class="try">
@@ -124,12 +124,21 @@ layout: default
                 <p id="tokenize" class="text-waiting"><span class="trynow-waiting">4</span>Tokenized Recurring Charge</p>
                 <p id="success" class="text-waiting"><span class="trynow-waiting">5</span>Success!</p>
             </div>
-            <p id="banner">You can embed rave on your page using the getpaidSetup function. Enter any of our test card details on our inline modal </p>      
+            <p id="banner">You can embed rave on your website by using the getpaidSetup function. Enter any of our test card details on our inline modal </p>      
         </div>
                 
         <div class="codebox">
-            <pre>
-
+            <div id="note">
+                <p>Add this button to your html file:</p>
+                &lt;button type="button" onClick="payWithRave()"&gt;Pay Now&lt;/button&gt;
+                
+                <p>Paste this script in the head of your html file:</p>
+                &lt;script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"&gt;&lt;/script&gt;
+                
+                <p>Add the code snippet to your javascipt file</p>
+            </div>
+            
+            <pre class="notes-padding">
                 function payWithRave() {
                 var x = getpaidSetup({
                 PBFPubKey: API_publicKey,
@@ -152,6 +161,7 @@ layout: default
                     }
                     });
                 }
+                
             </pre> 
 
             <button id="pay" class="btn show">Test payment</button>

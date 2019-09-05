@@ -55,7 +55,7 @@ layout: default
   <div class="right-nav">
     <p>TECHNOLOGIES</p>
 
-    <select name="sdk" class="listing" onchange="location = this.value;">
+    <select name="sdk" class="listing transfer-select" onchange="location = this.value;">
       <option value="">Select Technology</option>
       {% for p in site.posts %} {% if p.layout == "transfer" %}
 
