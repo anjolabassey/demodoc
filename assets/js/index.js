@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   let contentHolder = $("#content");
   let user, reference, token;
   let flwAuthToken;
@@ -37,10 +37,29 @@ $(document).ready(function() {
     $(".header-nav").append(userInfo);
   }
 
-  // Append copy buttons to all code sinppets on document ready
+   // Anchor links functionality for all headers
+    const appendAnchorLinks = function () {
+    const headings = document.querySelectorAll("h2,h3");
+    const linkContent = "  &#9875";
+  
+    for (const heading of headings) {
+      const linkIcon = document.createElement("a");
+      linkIcon.setAttribute("href", `#${heading.id}`);
+      linkIcon.setAttribute("class", "anchor");
+      linkIcon.innerHTML = linkContent;
+      heading.append(linkIcon);
+    }
+    };
+  
+  
+
+  
+
+  appendAnchorLinks();
+  // Append copy buttons to all code snippets on document ready
   $(".highlight")
     .append(copyButton)
-    .click(".copy-btn", function() {
+    .click(".copy-btn", function () {
       $("#inputContainer").append(copyArea);
       var content = $(this)
         .text()
@@ -70,7 +89,7 @@ $(document).ready(function() {
       copyArea.remove();
     });
 
-  $(".left-nav").on("click", ".get-content", function(e) {
+  $(".left-nav").on("click", ".get-content", function (e) {
     $("#log").html("");
     e.preventDefault();
     var addedUrl = $(this).attr("id");
@@ -82,7 +101,7 @@ $(document).ready(function() {
         "https://api.github.com/repos/anjolabassey/test-docs/contents" +
         addedUrl,
       type: "get",
-      success: function(data) {
+      success: function (data) {
         // let con = atob(response.content);
         let con = b64DecodeUnicode(data.content);
 
@@ -101,7 +120,7 @@ $(document).ready(function() {
 
         (html = $.parseHTML(md.render(con))), (nodeNames = []);
 
-        $.each(html, function(i, el) {
+        $.each(html, function (i, el) {
           if (el.nodeName == "H2") {
             nodeNames[i] =
               '<li class="listing"><a href="#h2">' + el.innerText + "</li></a>";
@@ -112,11 +131,14 @@ $(document).ready(function() {
         $("<ol></ol>")
           .append(nodeNames.join(""))
           .appendTo("#log");
+        
+        
+  appendAnchorLinks();
 
         // Append copy buttons to all code sinppets on document ready
         $(".highlight")
           .append(copyButton)
-          .click(".copy-btn", function() {
+          .click(".copy-btn", function () {
             $("#inputContainer").append(copyArea);
             var content = $(this)
               .text()
@@ -143,28 +165,30 @@ $(document).ready(function() {
             copyArea.remove();
           });
       },
-      error: function(xhr, textStatus, errorThrown) {
+      error: function (xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
         console.log(errorText);
       }
     });
+
+    
   });
 
   // displaying search modal when seach bar is clicked
-  $(".searchWrapper").click(function() {
+  $(".searchWrapper").click(function () {
     $(".searchModal").removeClass("hide");
     $(".searchBox").blur();
     $(".ais-search-box--input").focus();
   });
 
   // displaying the right transfer pages when the right nav is clicked
-  $(".right-nav").on("change", ".transfer-select", function(e) {
+  $(".right-nav").on("change", ".transfer-select", function (e) {
     var gg = $(this).attr("class");
     console.log(gg);
   });
 
   // When the user clicks anywhere outside of the modal, close it
-  $(document).on("click", function(event) {
+  $(document).on("click", function (event) {
     // console.log(event.target.className);
     // console.log($(".searchModal"))
     if (event.target == $(".searchModal")) {
@@ -172,7 +196,7 @@ $(document).ready(function() {
     }
   });
 
-  $(".modal-close").click(function() {
+  $(".modal-close").click(function () {
     console.log("gvh");
     $(".searchModal").removeClass("show");
     $(".searchModal").addClass("hide");
@@ -184,14 +208,14 @@ $(document).ready(function() {
     return decodeURIComponent(
       atob(str)
         .split("")
-        .map(function(c) {
+        .map(function (c) {
           return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         })
         .join("")
     );
   }
 
-  loginButton.click(function() {
+  loginButton.click(function () {
     // window.open(
     //   "{{site.baseurl}}/login",
     //   null,
@@ -201,7 +225,7 @@ $(document).ready(function() {
     keyObject = window.localStorage.getItem("liveKeys");
   });
 
-  getKeys.click(function(e) {
+  getKeys.click(function (e) {
     e.preventDefault();
 
     $("#email").blur();
@@ -234,12 +258,12 @@ $(document).ready(function() {
         "v3-xapp-id": 1
       },
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         flwAuthToken = data.data["flw-auth-token"];
         user = data.data.user["first_name"];
         window.sessionStorage.setItem("user", user);
       },
-      error: function(xhr, textStatus, errorThrown) {
+      error: function (xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
         console.log(errorText.message);
 
@@ -265,7 +289,7 @@ $(document).ready(function() {
       }
     });
 
-    loggedIn.done(function() {
+    loggedIn.done(function () {
       $.ajax({
         url: "https://api.ravepay.co/merchant/accounts/update",
         type: "post",
@@ -277,11 +301,11 @@ $(document).ready(function() {
           alt_mode_auth: 0
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
           console.log("just toggled to test");
           console.log(data);
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
           var errorText = xhr.responseJSON;
 
           $(".error").remove();
@@ -289,7 +313,7 @@ $(document).ready(function() {
             '<span class="error">' + errorText.message + "</span>"
           );
         }
-      }).done(function() {
+      }).done(function () {
         console.log("get the keys now");
 
         $.ajax({
@@ -300,7 +324,7 @@ $(document).ready(function() {
             alt_mode_auth: 0
           },
           dataType: "json",
-          success: function(data) {
+          success: function (data) {
             // var flwAuthToken = data.data["flw-auth-token"];
             console.log(data);
             API_publicKey = data.data.v1keys.public_key;
@@ -320,13 +344,13 @@ $(document).ready(function() {
             // opener.location.reload(true);
             // self.close();
           },
-          error: function(xhr, textStatus, errorThrown) {
+          error: function (xhr, textStatus, errorThrown) {
             var errorText = xhr.responseJSON;
             console.log(errorText);
             $(".error").remove();
             $("#submit").after('<span class="error">' + errorText + "</span>");
           }
-        }).done(function() {
+        }).done(function () {
           $.ajax({
             url: "https://api.ravepay.co/merchant/accounts/update",
             type: "post",
@@ -338,11 +362,11 @@ $(document).ready(function() {
               alt_mode_auth: 0
             },
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
               console.log("just toggled to live");
               console.log(data);
             },
-            error: function(xhr, textStatus, errorThrown) {
+            error: function (xhr, textStatus, errorThrown) {
               var errorText = xhr.responseJSON;
               $(".error").remove();
               $("#submit").after(
@@ -356,7 +380,7 @@ $(document).ready(function() {
   });
 
   // function to power adding rave to your project section
-  payButton.click(function() {
+  payButton.click(function () {
 
     var x = getpaidSetup({
       PBFPubKey: pubKey,
@@ -371,8 +395,8 @@ $(document).ready(function() {
           metavalue: "AP1234"
         }
       ],
-      onclose: function() {},
-      callback: function(response) {
+      onclose: function () { },
+      callback: function (response) {
         reference = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
         console.log("This is the response returned after a charge", response);
         if (
@@ -417,7 +441,7 @@ $(document).ready(function() {
   });
 
   // verifying the transaction when the verify payment button is clicked
-  $("body").on("click", "#verifyPayment", function() {
+  $("body").on("click", "#verifyPayment", function () {
     console.log("verifying");
     $.post(
       "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify",
@@ -425,7 +449,7 @@ $(document).ready(function() {
         txref: reference,
         SECKEY: secKey
       },
-      function(data, status) {
+      function (data, status) {
         token = data.data.card.card_tokens[0].embedtoken;
 
         paymentplanTitle.removeClass("text-waiting").addClass("text-current");
@@ -453,7 +477,7 @@ $(document).ready(function() {
   });
 
   // create a payment plan when the payment plan button is clicked
-  $("body").on("click", "#createPlan", function() {
+  $("body").on("click", "#createPlan", function () {
     $.post(
       "https://api.ravepay.co/v2/gpx/paymentplans/create",
       {
@@ -463,7 +487,7 @@ $(document).ready(function() {
         duration: "3",
         seckey: secKey
       },
-      function(data, status) {
+      function (data, status) {
         planId = data.data.id;
 
         tokenizeTitle.removeClass("text-waiting").addClass("text-current");
@@ -493,7 +517,7 @@ $(document).ready(function() {
   });
 
   // tokenized recurring charge
-  $("body").on("click", "#tokenizedCharge", function() {
+  $("body").on("click", "#tokenizedCharge", function () {
     $.post(
       "https://api.ravepay.co/flwv3-pug/getpaidx/api/tokenized/charge",
       {
@@ -507,7 +531,7 @@ $(document).ready(function() {
         txRef: "MC-835468",
         payment_plan: planId
       },
-      function(data, status) {
+      function (data, status) {
         console.log(data);
 
         tokenizeTitle.removeClass("text-current").addClass("text-completed");
@@ -530,6 +554,7 @@ $(document).ready(function() {
       }
     );
   });
+
 
 
 });

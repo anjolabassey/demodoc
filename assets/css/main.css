@@ -1194,3 +1194,8 @@ h6 {
 .post-snippet img {
   display: none;
 }
+
+.anchor {
+  background: url(../img/);
+  text-decoration: none;
+}
