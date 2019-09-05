@@ -414,13 +414,12 @@ $(document).ready(function () {
             .addClass("trynow-current");
 
           codebox.html(
-            `Here is a sample code snippet <br>
-            <code>
-            curl --request POST \ <br>
-              --url https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify \ <br>
-              --header 'content-type: application/json' \ <br>
+            `<pre>
+            curl --request POST \ 
+              --url https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify \ 
+              --header 'content-type: application/json' \ 
               --data '{"txref":"${reference}","SECKEY":"${secKey}"}'
-            </code>`
+            </pre>`
           );
           codebox.append(
             "<button id='verifyPayment' class='btn'>Verify Payment</button>"
@@ -462,9 +461,13 @@ $(document).ready(function () {
           .addClass("trynow-completed");
 
         codebox.html(
-          `curl --request POST \ <br>
-          --url https://api.ravepay.co/v2/gpx/paymentplans/create \ <br>
-          --data '{"amount":"100","name":"Gate Waters","interval":"hourly","duration":3,"seckey":"${secKey}"}'`
+          `<pre>curl --request POST \ 
+          --url https://api.ravepay.co/v2/gpx/paymentplans/create \ 
+          --data '{"amount":"100",
+          "name":"Gate Waters",
+          "interval":"hourly",
+          "duration":3,
+          "seckey":"${secKey}"}'</pre>`
         );
         codebox.append(
           "<button id='createPlan' class='btn'>Create Plan</button>"
@@ -499,9 +502,14 @@ $(document).ready(function () {
           .removeClass("trynow-current")
           .addClass("trynow-completed");
 
-        codebox.html(`<div class="notes-padding">curl --request POST \
-          --url https://api.ravepay.co/flwv3-pug/getpaidx/api/tokenized/charge \ <br>
-          --data '{"SECKEY":"${secKey}","duration":"3","interval":"hourly","name":"Gate Waters","amount":"100"}'</div>`);
+        codebox.html(`<pre>
+        curl --request POST \
+          --url https://api.ravepay.co/flwv3-pug/getpaidx/api/tokenized/charge \ 
+          --data '{"SECKEY":"${secKey}",
+          "duration":"3",
+          "interval":"hourly",
+          "name":"Gate Waters",
+          "amount":"100"}'</pre>`);
         codebox.append(
           "<button id='tokenizedCharge' class='btn'>Tokenized Recurring Charge</button>"
         );
@@ -543,7 +551,7 @@ $(document).ready(function () {
           .removeClass("trynow-waiting")
           .addClass("trynow-current");
 
-        codebox.html(`finished`);
+        codebox.html('<pre>closing tex</pre>');
         codebox.remove(
           "<button id='tokenizedCharge' class='btn'>Tokenized Recurring Charge</button>"
         );

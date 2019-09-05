@@ -264,23 +264,53 @@ body {
   position: relative;
   color: #1d75b3;
   overflow: auto;
+
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+ 
+  display: block;
+  text-align: left !important;
+  word-wrap: break-word;
+  margin: 0 !important;
+  overflow-x: auto;
+  background: rgba(232, 236, 242, 0.674536);
+  font-family: Open-Sans;
 }
 #note {
   position: absolute;
   background: #f2f2f2;
+  color: #000000;
   mix-blend-mode: normal;
   /* opacity: 0.5; */
-  border: 1px solid #c4cdd5;
+  /* border: 1px solid #c4cdd5; */
+  /* border-left: 5px solid #1d75b3; */
   box-sizing: border-box;
   border-radius: 0px 3px 3px 0px;
-  border-left: 5px solid #b8e986;
+  /* border-left: 5px solid #b8e986; */
   padding: 10px 15px;
   text-align: left;
   overflow: auto;
   height: 120px;
-  width: 50%;
+  width: 40%;
   right: 10px;
   top: 10px;
+
+  float: right;
+  /* border-left-width: 2px; 
+  width: 262px;
+  padding: 12px 16px;
+  margin: 15px 0 20px 40px;
+  position: relative;
+  z-index: 2; */
+  background: #fff;
+  /* -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); */
+  border-radius: 6px;
 }
 
 .notes-padding {
@@ -324,6 +354,9 @@ pre {
 }
 .text-center {
   text-align: center;
+}
+.text-left {
+  text-align: left;
 }
 
 .text-waiting {
@@ -1193,8 +1226,15 @@ h6 {
 }
 
 .anchor {
-  background: url(../img/);
+  /* background: url(../img/); */
   text-decoration: none;
+  opacity: 0;
+  color: #637381;
+}
+.anchor:hover {
+  opacity: 1;
+  text-decoration: none;
+
 }
 .inline-note {
   float: right;
