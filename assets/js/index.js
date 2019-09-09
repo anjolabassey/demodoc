@@ -1,6 +1,6 @@
 $(document).ready(function () {
   let contentHolder = $("#content");
-  let user, reference, token;
+  let user, reference, token, addedUrl;
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
@@ -16,6 +16,97 @@ $(document).ready(function () {
   let successTitle = $("#success");
   let codebox = $(".codebox");
   let codeboxBanner = $("#banner");
+  let goodRating = $("#yesButton");
+  let badRating = $("#noButton");
+
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+  function dothis(value) {
+       $.ajax({
+         url:
+           "https://api.github.com/repos/anjolabassey/test-docs/contents" +
+           addedUrl,
+         type: "get",
+         success: function(data) {
+           // let con = atob(response.content);
+           console.log(data);
+           let con = b64DecodeUnicode(data.content);
+
+           // If you're in the browser, the Remarkable class is already available in the window
+           var md = new Remarkable({
+             html: true
+           });
+
+           $(".doc-content").html(md.render(con));
+           $(".doc-content H2").attr("id", "h2");
+           window.sessionStorage.setItem("feature", addedUrl);
+
+           // console.log(md.render(con));
+
+           // console.log($("pre").html());
+           $("pre").addClass("highlight");
+
+           (html = $.parseHTML(md.render(con))), (nodeNames = []);
+
+           $.each(html, function(i, el) {
+             if (el.nodeName == "H2") {
+               nodeNames[i] =
+                 '<li class="listing"><a href="#h2">' +
+                 el.innerText +
+                 "</li></a>";
+             }
+           });
+
+           $("#log").append("<h4>TABLE OF CONTENTS</h4>");
+           $("<ol></ol>")
+             .append(nodeNames.join(""))
+             .appendTo("#log");
+
+           appendAnchorLinks();
+
+           // Append copy buttons to all code sinppets on document ready
+           $(".highlight")
+             .append(copyButton)
+             .click(".copy-btn", function() {
+               $("#inputContainer").append(copyArea);
+               var content = $(this)
+                 .text()
+                 .slice(0, -4);
+
+               $("#copied").val(content);
+
+               var pub = content.search("pin");
+               var sec = content.search("ravepay");
+               if (pub > 0) {
+                 content = content.replace("pin", "newpin");
+                 $("#copied").val(content);
+               } else if (sec > 0) {
+                 content = content.replace("ravepay", "newRavepay");
+                 $("#copied").val(content);
+               } else {
+                 console.log("not here");
+               }
+
+               var copyText = $("#copied");
+
+               copyText.select();
+               document.execCommand("copy");
+               copyArea.remove();
+             });
+         },
+         error: function(xhr, textStatus, errorThrown) {
+           var errorText = xhr.responseJSON;
+           console.log(errorText);
+         }
+       });
+  }
 
   var copyButton = $("<button/>", {
     text: "Copy",
@@ -92,86 +183,21 @@ $(document).ready(function () {
   $(".left-nav").on("click", ".get-content", function (e) {
     $("#log").html("");
     e.preventDefault();
-    var addedUrl = $(this).attr("id");
+    addedUrl = $(this).attr("id");
 
     $(this).addClass("active");
+    dothis("");
 
-    $.ajax({
-      url:
-        "https://api.github.com/repos/anjolabassey/test-docs/contents" +
-        addedUrl,
-      type: "get",
-      success: function (data) {
-        // let con = atob(response.content);
-        let con = b64DecodeUnicode(data.content);
-
-        // If you're in the browser, the Remarkable class is already available in the window
-        var md = new Remarkable({
-          html: true
-        });
-
-        $(".doc-content").html(md.render(con));
-        $(".doc-content H2").attr("id", "h2");
-
-        // console.log(md.render(con));
-
-        // console.log($("pre").html());
-        $("pre").addClass("highlight");
-
-        (html = $.parseHTML(md.render(con))), (nodeNames = []);
-
-        $.each(html, function (i, el) {
-          if (el.nodeName == "H2") {
-            nodeNames[i] =
-              '<li class="listing"><a href="#h2">' + el.innerText + "</li></a>";
-          }
-        });
-
-        $("#log").append("<h4>TABLE OF CONTENTS</h4>");
-        $("<ol></ol>")
-          .append(nodeNames.join(""))
-          .appendTo("#log");
-        
-        
-  appendAnchorLinks();
-
-        // Append copy buttons to all code sinppets on document ready
-        $(".highlight")
-          .append(copyButton)
-          .click(".copy-btn", function () {
-            $("#inputContainer").append(copyArea);
-            var content = $(this)
-              .text()
-              .slice(0, -4);
-
-            $("#copied").val(content);
-
-            var pub = content.search("pin");
-            var sec = content.search("ravepay");
-            if (pub > 0) {
-              content = content.replace("pin", "newpin");
-              $("#copied").val(content);
-            } else if (sec > 0) {
-              content = content.replace("ravepay", "newRavepay");
-              $("#copied").val(content);
-            } else {
-              console.log("not here");
-            }
-
-            var copyText = $("#copied");
-
-            copyText.select();
-            document.execCommand("copy");
-            copyArea.remove();
-          });
-      },
-      error: function (xhr, textStatus, errorThrown) {
-        var errorText = xhr.responseJSON;
-        console.log(errorText);
-      }
-    });
 
     
+  });
+
+    // displaying the right transfer pages when the right nav is clicked
+  $(".right-nav").on("change", ".transfer-select", function (e) {
+    var gg = $(this).attr("id");
+    addedUrl = sessionStorage.getItem("feature");
+    console.log(sessionStorage.getItem("feature"));
+    dothis(sessionStorage.getItem("feature"));
   });
 
   // displaying search modal when seach bar is clicked
@@ -181,11 +207,7 @@ $(document).ready(function () {
     $(".ais-search-box--input").focus();
   });
 
-  // displaying the right transfer pages when the right nav is clicked
-  $(".right-nav").on("change", ".transfer-select", function (e) {
-    var gg = $(this).attr("class");
-    console.log(gg);
-  });
+
 
   // When the user clicks anywhere outside of the modal, close it
   $(document).on("click", function (event) {
@@ -561,6 +583,19 @@ $(document).ready(function () {
         
       }
     );
+  });
+
+  // rating functionality
+  $("body").on("click", "#yesButton", function (e) {
+    e.preventDefault();
+    console.log("i just upvoted for " + sessionStorage.getItem("feature"));
+    
+  });
+
+  $("body").on("click", "#noButton", function (e) {
+    e.preventDefault();
+    console.log("i just downvoted for " + sessionStorage.getItem("feature"));
+    
   });
 
 

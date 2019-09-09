@@ -2,12 +2,15 @@
 layout: splitpayment
 title: splitpayment
 permalink: /splitpayment/
+identifier: node
 ---
+
+
 
 <div id="content">
 </div>
 
-Getting Started With The Nodejs SDK on transfer
+Getting Started With The Nodejs SDK on split payment
 ==================
 The official Nodejs SDK for making both Account and Card charges
 

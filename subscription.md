@@ -2,8 +2,9 @@
 layout: subscription
 title: subscription
 permalink: /subscription/
-identity: node
+identifier: node
 ---
+
 
 <div id="content">
 </div>
