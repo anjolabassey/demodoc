@@ -5,8 +5,6 @@ identifier: node
 permalink: /transfer/
 ---
 
-<div id="content">
-</div>
 
 Getting Started With The Nodejs SDK on transfer
 ==================

@@ -2,15 +2,12 @@ header:
 
   - title: PHP SDK
     identifier: php
-    
-  - title: NODE SDK
-    identifier: php
 
+  - title: NODE SDK
+    identifier: node
 
   - title: PYTHON SDK
-    identifier: php
-    category: transfer
+    identifier: python
    
-
   - title: RUBY SDK
-    identifier: php
+    identifier: ruby

@@ -1,12 +1,12 @@
 header:
   - title: Overview (php)
     identifier: php
-    url: /node/transfers/overview.md
+    url: /php/transfers/overview.md
     category: transfer
 
   - title: Quick Start (php)
     identifier: php
-    url: /transfers/quickstart.md
+    url: php/transfers/quickstart.md
     category: transfer
 
   - title: Completing a transfer (php) 
@@ -15,17 +15,17 @@ header:
     subfolderitems:
       - title: Single Transfers (php)
         identifier: php
-        url: /node/transfers/singletransfer.md
+        url: /php/transfers/singletransfer.md
         category: transfer
       
       - title: Bulk transfers (php)
         identifier: php
-        url: /node/transfers/bulktransfer.md
+        url: /php/transfers/bulktransfer.md
         category: transfer
 
   - title: Going Live (php).
     identifier: php
-    url: /node/transfers/goinglive.md
+    url: /php/transfers/goinglive.md
     category: transfer
 
     
@@ -62,7 +62,7 @@ header:
 
   - title: Quick Start (python) 
     identifier: python
-    url: /node/transfers/quickstart.md
+    url: /python/transfers/quickstart.md
     category: transfer
 
   - title: Completing a transfer (python)
@@ -71,18 +71,18 @@ header:
     subfolderitems:
       - title: Single Transfers (python)
         identifier: python
-        url: /node/transfers/singletransfer.md
+        url: /python/transfers/singletransfer.md
         category: transfer
       
       - title: Bulk transfers (python)
         identifier: python
-        url: bulktransfer.md
+        url: /python/transfers/bulktransfer.md
         category: transfer
         
 
   - title: Going Live (python).
     identifier: python
-    url: /node/transfers/goinglive.md
+    url: /python/transfers/goinglive.md
     category: transfer
     
     

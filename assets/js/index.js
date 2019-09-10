@@ -1,6 +1,6 @@
 $(document).ready(function () {
   let contentHolder = $("#content");
-  let user, reference, token, addedUrl;
+  let user, reference, token, addedUrl, currentUrl, currentTech;
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
@@ -19,19 +19,17 @@ $(document).ready(function () {
   let goodRating = $("#yesButton");
   let badRating = $("#noButton");
 
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-  }
 
-  function dothis(value) {
+  function changeTech(value) {
+    console.log("changing this tech stack")
+    if (value != "") {
+      addedUrl = value;
+      console.log("right nav clicked")
+    }
+    console.log(value);
        $.ajax({
          url:
-           "https://api.github.com/repos/anjolabassey/test-docs/contents" +
+           "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
            addedUrl,
          type: "get",
          success: function(data) {
@@ -186,19 +184,56 @@ $(document).ready(function () {
     addedUrl = $(this).attr("id");
 
     $(this).addClass("active");
-    dothis("");
+    changeTech("");
 
 
     
   });
 
     // displaying the right transfer pages when the right nav is clicked
-  $(".right-nav").on("change", ".transfer-select", function (e) {
-    var gg = $(this).attr("id");
-    addedUrl = sessionStorage.getItem("feature");
-    console.log(sessionStorage.getItem("feature"));
-    dothis(sessionStorage.getItem("feature"));
+  // $(".right-nav").on("change", ".transfer-select", function (e) {
+  //   var gg = $(this).attr("id");
+  //   addedUrl = sessionStorage.getItem("feature");
+  //   console.log(sessionStorage.getItem("feature"));
+  //   changesdk()
+    
+    
+  // });
+
+  $("#sdk").on("change", function() {
+    
+    currentUrl = sessionStorage.getItem("feature");
+    // console.log(sessionStorage.getItem("feature"));
+    currentTech = sessionStorage.getItem("feature");
+    currentTech = currentTech.substring(currentTech.indexOf("/", 1));
+    console.log(currentTech);
+    currentTech = this.value + currentTech
+    
+    changeTech(currentTech);
+    sessionStorage.setItem("feature", currentTech);
+
+
+
+    console.log()
+   
   });
+
+  // // navigation per say
+  // $('.default-nav').show();
+  // $(".secondary-nav").hide();
+  // $("#sdk").on("change", function () { 
+  //   $(".default-nav").hide();
+
+  //   // add elements inside it
+  //   var imgg = document.createElement("img");
+  //     imgg.setAttribute("src", './img/bills.png');
+  //     // imgg.setAttribute("class", "anchor");
+  //     // imgg.innerHTML = linkContent;
+      
+  //   $(".secondary-nav").append(imgg);
+    
+  //   $(".secondary-nav").show();
+  // });
 
   // displaying search modal when seach bar is clicked
   $(".searchWrapper").click(function () {
@@ -269,8 +304,8 @@ $(document).ready(function () {
       password: password
     };
 
-    getKeys.text("Fetching your test keys");
-    getKeys.attr("disabled", true);
+    // getKeys.text("Fetching your test keys");
+    // getKeys.attr("disabled", true);
 
     var loggedIn = $.ajax({
       url: "https://api.ravepay.co/login",

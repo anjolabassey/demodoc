@@ -9,42 +9,47 @@ layout: default
     </a>
 
     <div class="home">
-      {%- if page.categories -%}
-      <h1 class="page-heading">{{ page.categories }}</h1>
-      {%- endif -%}
 
-      <h1 class="page-heading">{{ page.identifier }}</h1>
+      <!-- onchange of that select box (identifier) {
+        list base what was passed
+      } else {
 
-      <ul class="listing">
-        {% for item in site.data.transfer.header %}
+      } -->
+      <!-- <div class="secondary-nav">Anjola is beautiful.</div> -->
+      <!-- <div class="default-nav"> -->
+        <h1 class="page-heading">{{ page.identifier }}</h1>
 
-        <li class="menu-item-{{ loop.index }}">
-          {%- if item.identifier == page.identifier -%}
+        <ul class="listing">
+          {% for item in site.data.transfer.header %}
 
-          <a
-            class="get-content"
-            id="{{ item.url }}"
-            href=""
-            title="Go to {{ item.title }}"
-            >{{ item.title }}</a
-          >
-          <ul class="sublisting">
-            {% for entry in item.subfolderitems %}
-            <li>
-              <a
-                class="get-content"
-                id="{{ item.url }}"
-                href=""
-                title="Go to {{ item.title }}"
-                >{{ entry.title }}</a
-              >
-            </li>
-            {% endfor %}
-          </ul>
-          {%- endif -%}
-        </li>
-        {% endfor %}
-      </ul>
+          <li class="menu-item-{{ loop.index }}">
+            {%- if item.identifier == page.identifier -%}
+
+            <a
+              class="get-content"
+              id="{{ item.url }}"
+              href=""
+              title="Go to {{ item.title }}"
+              >{{ item.title }}</a
+            >
+            <ul class="sublisting listing">
+              {% for entry in item.subfolderitems %}
+              <li>
+                <a
+                  class="get-content"
+                  id="{{ item.url }}"
+                  href=""
+                  title="Go to {{ item.title }}"
+                  >{{ entry.title }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+            {%- endif -%}
+          </li>
+          {% endfor %}
+        </ul>
+      <!-- </div> -->
     </div>
   </div>
 
@@ -55,14 +60,24 @@ layout: default
   <div class="right-nav">
     <p>TECHNOLOGIES</p>
 
-    <select name="sdk" class="listing" onchange="location = this.value;">
+    <!-- <select id="sdk" name="sdk" class="listing">
       <option value="">Select Technology</option>
       {% for p in site.posts %} {% if p.layout == "transfer" %}
 
-      <option value="{{ site.url }}{{ site.baseurl }}{{ p.url }}">{{
+      <option value="{{ p.url }}">{{
         p.title
       }}</option>
       {% endif %} {% endfor %}
+    </select> -->
+
+    <select id="sdk" name="sdk" class="listing">
+      <option value="">Select Technology</option>
+      {% for p in site.data.sdk.header %} 
+
+      <option value="{{ p.identifier }}">{{
+        p.title
+      }}</option>
+     {% endfor %}
     </select>
 
     <hr />
