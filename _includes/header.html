@@ -1,20 +1,38 @@
 <header class="mainHeader">
-    <a href="{{site.url}}{{site.baseurl}}"><img src="{{site.url}}{{site.baseurl}}/assets/img/flw_icon.svg" alt="flutterwave" /></a>
+  <a href="{{ site.url }}{{ site.baseurl }}"
+    ><img id="logo"
+      src="{{ site.url }}{{ site.baseurl }}/assets/img/flw_icon.svg"
+      alt="flutterwave"
+  /></a>
 
-    <div class="searchWrapper">
-        <i class="fa fa-search searchIcon"></i>
-        <input class="searchBox" type="search" name="search" placeholder="Search the documentation">
-    </div>
+  <div class="searchWrapper">
+    <i class="fa fa-search searchIcon"></i>
+    <input
+      class="searchBox"
+      type="search"
+      name="search"
+      placeholder="Search the documentation"
+    />
+  </div>
 
-    <div class="header-nav">     
-        <a href="https://support.flutterwave.com" class="headerLink">Support</a>
-        <a href="" class="headerLink">Guides and Resources</a>
-        <a onClick="MyWindow=window.open('{{site.baseurl}}/login','MyWindow','width=600,height=300'); return false;">
-            <button class="headerButton" id="login">Get API Keys</button>
-        </a>
-        <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>         -->
-    </div>
+  <div class="header-nav">
+    <a href="https://support.flutterwave.com" class="headerLink">Support</a>
+    <a href="" class="headerLink">Guides and Resources</a>
+   
+      <a id="user_info" onClick="openLoginWindow()">
+        <button class="headerButton" id="login">Get API Keys</button>
+      </a>
+ 
+  </div>
 </header>
 
+<script>
+  function openLoginWindow() {
+    var MyWindow = window.open(
+      "{{site.baseurl}}/login",
+      "MyWindow",
+      "width=600,height=300"
+    );
+    return false;
+  }
+</script>

@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(document).ready(function() {
   let contentHolder = $("#content");
-  let user, reference, token, addedUrl, currentUrl, currentTech;
+  let user, businessLogo, reference, token, addedUrl, currentUrl, currentTech;
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
@@ -8,6 +8,7 @@ $(document).ready(function () {
   let secKey = "FLWSECK_TEST-624d8f04393b01cac90d02f562b26389-X";
 
   let getKeys = $("#submit");
+  let userDisplay = $("#user_info");
   let payButton = $("#pay");
   let chargeTitle = $("#charge");
   let verifyTitle = $("#verify");
@@ -19,91 +20,141 @@ $(document).ready(function () {
   let goodRating = $("#yesButton");
   let badRating = $("#noButton");
 
+  user = localStorage.getItem("user");
+  businessLogo = localStorage.getItem("logo");
+
+  if (localStorage.getItem("API_secretKey")) {
+    // $(".callouts").removeClass("hide");
+    // $(".callouts").addClass("show");
+    var seckey = localStorage.getItem("API_secretKey");
+    var pubkey = localStorage.getItem("API_publicKey");
+
+    $(".doc-content").prepend(
+      `<div class="callouts"><p class="callouts-header">YOUR API KEYS</p><p class="callouts-label">Public key: <span class="callouts-text">${pubkey}<span></p><p class="callouts-label">Secret key: <span class="callouts-text">${seckey}</span></p></div>`
+    );
+   
+  }
+    if (user == "null") {
+      // console.log("user is null");
+      userDisplay.html(userSpan);
+    }
+  
+  if (businessLogo == "null") {
+    // console.log("logo is null");
+    var imgg = document.createElement("img");
+    imgg.setAttribute("src", businessLogo);
+    imgg.setAttribute("class", "user-image");
+
+    var words = user.split(" ");
+    var text = "";
+    $.each(words, function() {
+      text += this.substring(0, 1);
+    });
+
+    //var first_letter = user.substring(0, 1);
+
+    var userSpan = $(
+      `<div><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
+    );
+
+    $("#user_info").remove();
+    $(".header-nav").append(userSpan);
+  } else {
+    // console.log("all is well");
+    var imgg = document.createElement("img");
+    imgg.setAttribute("src", businessLogo);
+    imgg.setAttribute("class", "user-image");
+
+    var userSpan = $(
+      `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span></div>`
+    );
+
+    $("#user_info").remove();
+    $(".header-nav").append(userSpan);
+  }
 
   function changeTech(value) {
-    console.log("changing this tech stack")
+    console.log("changing this tech stack");
     if (value != "") {
       addedUrl = value;
-      console.log("right nav clicked")
+      console.log("right nav clicked");
     }
     console.log(value);
-       $.ajax({
-         url:
-           "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
-           addedUrl,
-         type: "get",
-         success: function(data) {
-           // let con = atob(response.content);
-           console.log(data);
-           let con = b64DecodeUnicode(data.content);
+    $.ajax({
+      url:
+        "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
+        addedUrl,
+      type: "get",
+      success: function(data) {
+        // let con = atob(response.content);
+        console.log(data);
+        let con = b64DecodeUnicode(data.content);
 
-           // If you're in the browser, the Remarkable class is already available in the window
-           var md = new Remarkable({
-             html: true
-           });
+        // If you're in the browser, the Remarkable class is already available in the window
+        var md = new Remarkable({
+          html: true
+        });
 
-           $(".doc-content").html(md.render(con));
-           $(".doc-content H2").attr("id", "h2");
-           window.sessionStorage.setItem("feature", addedUrl);
+        $(".doc-content").html(md.render(con));
+        $(".doc-content H2").attr("id", "h2");
+        localStorage.setItem("feature", addedUrl);
 
-           // console.log(md.render(con));
+        // console.log(md.render(con));
 
-           // console.log($("pre").html());
-           $("pre").addClass("highlight");
+        // console.log($("pre").html());
+        $("pre").addClass("highlight");
 
-           (html = $.parseHTML(md.render(con))), (nodeNames = []);
+        (html = $.parseHTML(md.render(con))), (nodeNames = []);
 
-           $.each(html, function(i, el) {
-             if (el.nodeName == "H2") {
-               nodeNames[i] =
-                 '<li class="listing"><a href="#h2">' +
-                 el.innerText +
-                 "</li></a>";
-             }
-           });
+        $.each(html, function(i, el) {
+          if (el.nodeName == "H2") {
+            nodeNames[i] =
+              '<li class="listing"><a href="#h2">' + el.innerText + "</li></a>";
+          }
+        });
 
-           $("#log").append("<h4>TABLE OF CONTENTS</h4>");
-           $("<ol></ol>")
-             .append(nodeNames.join(""))
-             .appendTo("#log");
+        $("#log").append("<h4>TABLE OF CONTENTS</h4>");
+        $("<ol></ol>")
+          .append(nodeNames.join(""))
+          .appendTo("#log");
 
-           appendAnchorLinks();
+        appendAnchorLinks();
 
-           // Append copy buttons to all code sinppets on document ready
-           $(".highlight")
-             .append(copyButton)
-             .click(".copy-btn", function() {
-               $("#inputContainer").append(copyArea);
-               var content = $(this)
-                 .text()
-                 .slice(0, -4);
+        // Append copy buttons to all code sinppets on document ready
+        $(".highlight")
+          .append(copyButton)
+          .click(".copy-btn", function() {
+            $("#inputContainer").append(copyArea);
+            var content = $(this)
+              .text()
+              .slice(0, -4);
 
-               $("#copied").val(content);
+            $("#copied").val(content);
 
-               var pub = content.search("pin");
-               var sec = content.search("ravepay");
-               if (pub > 0) {
-                 content = content.replace("pin", "newpin");
-                 $("#copied").val(content);
-               } else if (sec > 0) {
-                 content = content.replace("ravepay", "newRavepay");
-                 $("#copied").val(content);
-               } else {
-                 console.log("not here");
-               }
+            var pub = content.search("pin");
+            var sec = content.search("ravepay");
+            if (pub > 0) {
+              content = content.replace("pin", "newpin");
+              $("#copied").val(content);
+            } else if (sec > 0) {
+              content = content.replace("ravepay", "newRavepay");
+              $("#copied").val(content);
+            } else {
+              console.log("not here");
+            }
 
-               var copyText = $("#copied");
+            var copyText = $("#copied");
 
-               copyText.select();
-               document.execCommand("copy");
-               copyArea.remove();
-             });
-         },
-         error: function(xhr, textStatus, errorThrown) {
-           var errorText = xhr.responseJSON;
-           console.log(errorText);
-         }
-       });
+            copyText.select();
+            document.execCommand("copy");
+            copyArea.remove();
+          });
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        var errorText = xhr.responseJSON;
+        console.log(errorText);
+      }
+    });
   }
 
   var copyButton = $("<button/>", {
@@ -115,10 +166,6 @@ $(document).ready(function () {
     class: "copy-area",
     id: "copied"
   });
-  var userInfo = $("<div />", {
-    class: "user-image"
-  });
-  var userSpan = $("<p>" + user + "</p>");
 
   function displayUser() {
     $("#login").remove();
@@ -126,11 +173,11 @@ $(document).ready(function () {
     $(".header-nav").append(userInfo);
   }
 
-   // Anchor links functionality for all headers
-    const appendAnchorLinks = function () {
+  // Anchor links functionality for all headers
+  const appendAnchorLinks = function() {
     const headings = document.querySelectorAll("h2,h3");
     const linkContent = "  &#9875";
-  
+
     for (const heading of headings) {
       const linkIcon = document.createElement("a");
       linkIcon.setAttribute("href", `#${heading.id}`);
@@ -138,17 +185,13 @@ $(document).ready(function () {
       linkIcon.innerHTML = linkContent;
       heading.append(linkIcon);
     }
-    };
-  
-  
-
-  
+  };
 
   appendAnchorLinks();
   // Append copy buttons to all code snippets on document ready
   $(".highlight")
     .append(copyButton)
-    .click(".copy-btn", function () {
+    .click(".copy-btn", function() {
       $("#inputContainer").append(copyArea);
       var content = $(this)
         .text()
@@ -156,8 +199,8 @@ $(document).ready(function () {
 
       $("#copied").val(content);
 
-      API_publicKey = window.localStorage.getItem("API_publicKey");
-      API_secretKey = window.localStorage.getItem("API_secretKey");
+      API_publicKey = localStorage.getItem("API_publicKey");
+      API_secretKey = localStorage.getItem("API_secretKey");
 
       var pub = content.search("pin");
       var sec = content.search("ravepay");
@@ -178,50 +221,42 @@ $(document).ready(function () {
       copyArea.remove();
     });
 
-  $(".left-nav").on("click", ".get-content", function (e) {
+  $(".left-nav").on("click", ".get-content", function(e) {
     $("#log").html("");
     e.preventDefault();
     addedUrl = $(this).attr("id");
 
     $(this).addClass("active");
     changeTech("");
-
-
-    
   });
 
-    // displaying the right transfer pages when the right nav is clicked
+  // displaying the right transfer pages when the right nav is clicked
   // $(".right-nav").on("change", ".transfer-select", function (e) {
   //   var gg = $(this).attr("id");
-  //   addedUrl = sessionStorage.getItem("feature");
-  //   console.log(sessionStorage.getItem("feature"));
+  //   addedUrl = localStorage.getItem("feature");
+  //   console.log(localStorage.getItem("feature"));
   //   changesdk()
-    
-    
+
   // });
 
   $("#sdk").on("change", function() {
-    
-    currentUrl = sessionStorage.getItem("feature");
-    // console.log(sessionStorage.getItem("feature"));
-    currentTech = sessionStorage.getItem("feature");
+    currentUrl = localStorage.getItem("feature");
+    // console.log(localStorage.getItem("feature"));
+    currentTech = localStorage.getItem("feature");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
     console.log(currentTech);
-    currentTech = this.value + currentTech
-    
+    currentTech = this.value + currentTech;
+
     changeTech(currentTech);
-    sessionStorage.setItem("feature", currentTech);
+    localStorage.setItem("feature", currentTech);
 
-
-
-    console.log()
-   
+    console.log();
   });
 
   // // navigation per say
   // $('.default-nav').show();
   // $(".secondary-nav").hide();
-  // $("#sdk").on("change", function () { 
+  // $("#sdk").on("change", function () {
   //   $(".default-nav").hide();
 
   //   // add elements inside it
@@ -229,23 +264,21 @@ $(document).ready(function () {
   //     imgg.setAttribute("src", './img/bills.png');
   //     // imgg.setAttribute("class", "anchor");
   //     // imgg.innerHTML = linkContent;
-      
+
   //   $(".secondary-nav").append(imgg);
-    
+
   //   $(".secondary-nav").show();
   // });
 
   // displaying search modal when seach bar is clicked
-  $(".searchWrapper").click(function () {
+  $(".searchWrapper").click(function() {
     $(".searchModal").removeClass("hide");
     $(".searchBox").blur();
     $(".ais-search-box--input").focus();
   });
 
-
-
   // When the user clicks anywhere outside of the modal, close it
-  $(document).on("click", function (event) {
+  $(document).on("click", function(event) {
     // console.log(event.target.className);
     // console.log($(".searchModal"))
     if (event.target == $(".searchModal")) {
@@ -253,7 +286,7 @@ $(document).ready(function () {
     }
   });
 
-  $(".modal-close").click(function () {
+  $(".modal-close").click(function() {
     console.log("gvh");
     $(".searchModal").removeClass("show");
     $(".searchModal").addClass("hide");
@@ -265,14 +298,14 @@ $(document).ready(function () {
     return decodeURIComponent(
       atob(str)
         .split("")
-        .map(function (c) {
+        .map(function(c) {
           return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         })
         .join("")
     );
   }
 
-  getKeys.click(function (e) {
+  getKeys.click(function(e) {
     e.preventDefault();
 
     $("#email").blur();
@@ -295,7 +328,7 @@ $(document).ready(function () {
     };
 
     getKeys.html("<i class='fa fa-spinner fa-spin'></i>Fetching Keys");
-  
+
     // getKeys.attr("disabled", true);
 
     var loggedIn = $.ajax({
@@ -306,18 +339,20 @@ $(document).ready(function () {
         "v3-xapp-id": 1
       },
       dataType: "json",
-      success: function (data) {
-        // console.log(data);
+      success: function(data) {
         flwAuthToken = data.data["flw-auth-token"];
-        user = data.data.user["first_name"];
-        window.sessionStorage.setItem("user", user);
+
+        localStorage.setItem("user", data.data.user["first_name"]);
+        localStorage.setItem("logo", data.data.company["business_logo"]);
       },
-      error: function (xhr, textStatus, errorThrown) {
+      error: function(xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
 
         getKeys.html("LOGIN");
 
-        if (errorText.message == "identifier is required , password is required") {
+        if (
+          errorText.message == "identifier is required , password is required"
+        ) {
           $(".error").remove();
           $("#submit").after('<span class="error"></span>');
         } else if (
@@ -337,7 +372,7 @@ $(document).ready(function () {
       }
     });
 
-    loggedIn.done(function () {
+    loggedIn.done(function() {
       $.ajax({
         url: "https://api.ravepay.co/merchant/accounts/update",
         type: "post",
@@ -346,15 +381,15 @@ $(document).ready(function () {
         },
         headers: {
           "flw-auth-token": flwAuthToken,
-          "alt_mode_auth": 0,
+          alt_mode_auth: 0,
           "v3-xapp-id": 1
         },
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
           console.log("just toggled to test");
           // console.log(data);
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
           var errorText = xhr.responseJSON;
 
           $(".error").remove();
@@ -362,7 +397,7 @@ $(document).ready(function () {
             '<span class="error">' + errorText.message + "</span>"
           );
         }
-      }).done(function () {
+      }).done(function() {
         console.log("get the keys now");
 
         $.ajax({
@@ -370,10 +405,10 @@ $(document).ready(function () {
           type: "get",
           headers: {
             "flw-auth-token": flwAuthToken,
-            "alt_mode_auth": 0
+            alt_mode_auth: 0
           },
           dataType: "json",
-          success: function (data) {
+          success: function(data) {
             // var flwAuthToken = data.data["flw-auth-token"];
             // console.log(data);
             API_publicKey = data.data.v1keys.public_key;
@@ -382,23 +417,21 @@ $(document).ready(function () {
             // Check browser support
             if (typeof Storage !== "undefined") {
               // Store
-              window.sessionStorage.setItem("API_publicKey", API_publicKey);
-              window.sessionStorage.setItem("API_secretKey", API_secretKey);
+              localStorage.setItem("API_publicKey", API_publicKey);
+              localStorage.setItem("API_secretKey", API_secretKey);
             } else {
               console.log(
                 "Sorry, your browser does not support Web Storage..."
               );
             }
-
-            
           },
-          error: function (xhr, textStatus, errorThrown) {
+          error: function(xhr, textStatus, errorThrown) {
             var errorText = xhr.responseJSON;
             console.log(errorText);
             $(".error").remove();
             $("#submit").after('<span class="error">' + errorText + "</span>");
           }
-        }).done(function () {
+        }).done(function() {
           $.ajax({
             url: "https://api.ravepay.co/merchant/accounts/update",
             type: "post",
@@ -407,23 +440,23 @@ $(document).ready(function () {
             },
             headers: {
               "flw-auth-token": flwAuthToken,
-              "alt_mode_auth": 0
+              alt_mode_auth: 0
             },
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
               console.log("just toggled to live");
               // console.log(data);
 
-              $("#login_form").html("<div class='success_message'>Your keys have been fetched successfully</div>")
-              setInterval(function() {
-                // opener.location.reload(true);
-                window.close();
-               
-              }, 5000);
+              $("#login_form").html(
+                "<div class='success_message'>Your keys have been fetched successfully</div>"
+              );
 
-           
+              setInterval(function() {
+                opener.location.reload(true);
+                window.close();
+              }, 3000);
             },
-            error: function (xhr, textStatus, errorThrown) {
+            error: function(xhr, textStatus, errorThrown) {
               var errorText = xhr.responseJSON;
               $(".error").remove();
               $("#submit").after(
@@ -437,8 +470,7 @@ $(document).ready(function () {
   });
 
   // function to power adding rave to your project section
-  payButton.click(function () {
-
+  payButton.click(function() {
     var x = getpaidSetup({
       PBFPubKey: pubKey,
       customer_email: "user@example.com",
@@ -452,8 +484,8 @@ $(document).ready(function () {
           metavalue: "AP1234"
         }
       ],
-      onclose: function () { },
-      callback: function (response) {
+      onclose: function() {},
+      callback: function(response) {
         reference = response.tx.txRef; // collect txRef returned and pass to a server page to complete status check.
         console.log("This is the response returned after a charge", response);
         if (
@@ -497,7 +529,7 @@ $(document).ready(function () {
   });
 
   // verifying the transaction when the verify payment button is clicked
-  $("body").on("click", "#verifyPayment", function () {
+  $("body").on("click", "#verifyPayment", function() {
     console.log("verifying");
     $.post(
       "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify",
@@ -505,7 +537,7 @@ $(document).ready(function () {
         txref: reference,
         SECKEY: secKey
       },
-      function (data, status) {
+      function(data, status) {
         token = data.data.card.card_tokens[0].embedtoken;
 
         paymentplanTitle.removeClass("text-waiting").addClass("text-current");
@@ -537,7 +569,7 @@ $(document).ready(function () {
   });
 
   // create a payment plan when the payment plan button is clicked
-  $("body").on("click", "#createPlan", function () {
+  $("body").on("click", "#createPlan", function() {
     $.post(
       "https://api.ravepay.co/v2/gpx/paymentplans/create",
       {
@@ -547,7 +579,7 @@ $(document).ready(function () {
         duration: "3",
         seckey: secKey
       },
-      function (data, status) {
+      function(data, status) {
         planId = data.data.id;
 
         tokenizeTitle.removeClass("text-waiting").addClass("text-current");
@@ -582,7 +614,7 @@ $(document).ready(function () {
   });
 
   // tokenized recurring charge
-  $("body").on("click", "#tokenizedCharge", function () {
+  $("body").on("click", "#tokenizedCharge", function() {
     $.post(
       "https://api.ravepay.co/flwv3-pug/getpaidx/api/tokenized/charge",
       {
@@ -596,7 +628,7 @@ $(document).ready(function () {
         txRef: "MC-835468",
         payment_plan: planId
       },
-      function (data, status) {
+      function(data, status) {
         console.log(data);
 
         tokenizeTitle.removeClass("text-current").addClass("text-completed");
@@ -608,31 +640,41 @@ $(document).ready(function () {
           .removeClass("trynow-waiting")
           .addClass("trynow-current");
 
-        codebox.html('<pre>closing tex</pre>');
+        codebox.html("<pre>closing tex</pre>");
         codebox.remove(
           "<button id='tokenizedCharge' class='btn'>Tokenized Recurring Charge</button>"
         );
         codeboxBanner.text(
           "You have successfully added rave to your project by charging a card, saving that card and creating a subscription for the user"
         );
-        
       }
     );
   });
 
   // rating functionality
-  $("body").on("click", "#yesButton", function (e) {
+  $("body").on("click", "#yesButton", function(e) {
     e.preventDefault();
-    console.log("i just upvoted for " + sessionStorage.getItem("feature"));
-    
+    console.log("i just upvoted for " + localStorage.getItem("feature"));
+
+    $.ajax({
+      url: "http://04ff9f9a.ngrok.io/thumbs-up",
+      type: "post",
+      data: {
+        url: localStorage.getItem("feature")
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        var errorText = xhr.responseJSON;
+        console.log(errorText);
+      }
+    });
   });
 
-  $("body").on("click", "#noButton", function (e) {
+  $("body").on("click", "#noButton", function(e) {
     e.preventDefault();
-    console.log("i just downvoted for " + sessionStorage.getItem("feature"));
-    
+    console.log("i just downvoted for " + localStorage.getItem("feature"));
   });
-
-
-
 });
