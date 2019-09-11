@@ -307,7 +307,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         flwAuthToken = data.data["flw-auth-token"];
         user = data.data.user["first_name"];
         window.sessionStorage.setItem("user", user);
@@ -352,7 +352,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
           console.log("just toggled to test");
-          console.log(data);
+          // console.log(data);
         },
         error: function (xhr, textStatus, errorThrown) {
           var errorText = xhr.responseJSON;
@@ -375,7 +375,7 @@ $(document).ready(function () {
           dataType: "json",
           success: function (data) {
             // var flwAuthToken = data.data["flw-auth-token"];
-            console.log(data);
+            // console.log(data);
             API_publicKey = data.data.v1keys.public_key;
             API_secretKey = data.data.v1keys.secret_key;
 
@@ -412,12 +412,13 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
               console.log("just toggled to live");
-              console.log(data);
+              // console.log(data);
 
               $("#login_form").html("<div class='success_message'>Your keys have been fetched successfully</div>")
               setInterval(function() {
                 // opener.location.reload(true);
-                self.close();
+                window.close();
+               
               }, 5000);
 
            
