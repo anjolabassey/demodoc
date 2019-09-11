@@ -55,7 +55,7 @@ $(document).ready(function() {
       //var first_letter = user.substring(0, 1);
 
       var userSpan = $(
-        `<div><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
+        `<div class='header-info'><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
       );
 
       $("#user_info").remove();
@@ -680,5 +680,22 @@ $(document).ready(function() {
   $("body").on("click", "#noButton", function(e) {
     e.preventDefault();
     console.log("i just downvoted for " + localStorage.getItem("feature"));
+
+    $.ajax({
+      url: "http://04ff9f9a.ngrok.io/thumbs-down",
+      type: "post",
+      data: {
+        url: localStorage.getItem("feature")
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        var errorText = xhr.responseJSON;
+        console.log(errorText);
+      }
+    });
   });
+
 });
