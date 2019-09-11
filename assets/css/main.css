@@ -725,6 +725,7 @@ pre {
 textarea:focus,
 input:focus {
   outline: none;
+ 
 }
 
 /* post styling */
@@ -884,17 +885,29 @@ input:focus {
   font-size: 14px;
   letter-spacing: 2px;
   font-weight: 500;
-  margin-bottom: 26px;
+  margin-bottom: 25px;
   margin-top: 15px;
 }
 .login_form input {
   padding: 14px 16px;
-  margin-bottom: 5px;
   font-size: 18px;
-  width: inherit;
+  width: 92%;
   font-weight: 400;
   display: block;
-  width: 90%;
+}
+.login_form input:focus {
+  border: 1px solid #f5a623;
+  
+}
+
+.fa {
+  margin-right: 10px;
+}
+.success_message {
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding: 10px 20px;
 }
 .error {
   color: red;
@@ -920,6 +933,7 @@ input:focus {
   width: 100%;
   background-color: #f5a623;
   color: #ffffff;
+  border: none;
 }
 
 /* markdown styling */

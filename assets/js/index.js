@@ -6,7 +6,7 @@ $(document).ready(function () {
   let API_secretKey;
   let pubKey = "FLWPUBK_TEST-0db01907c1b990c273c365a696c1613d-X";
   let secKey = "FLWSECK_TEST-624d8f04393b01cac90d02f562b26389-X";
-  let loginButton = $("#login");
+
   let getKeys = $("#submit");
   let payButton = $("#pay");
   let chargeTitle = $("#charge");
@@ -272,16 +272,6 @@ $(document).ready(function () {
     );
   }
 
-  loginButton.click(function () {
-    // window.open(
-    //   "{{site.baseurl}}/login",
-    //   null,
-    //   "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no"
-    // );
-
-    keyObject = window.localStorage.getItem("liveKeys");
-  });
-
   getKeys.click(function (e) {
     e.preventDefault();
 
@@ -304,7 +294,8 @@ $(document).ready(function () {
       password: password
     };
 
-    // getKeys.text("Fetching your test keys");
+    getKeys.html("<i class='fa fa-spinner fa-spin'></i>Fetching Keys");
+  
     // getKeys.attr("disabled", true);
 
     var loggedIn = $.ajax({
@@ -316,17 +307,17 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (data) {
+        console.log(data);
         flwAuthToken = data.data["flw-auth-token"];
         user = data.data.user["first_name"];
         window.sessionStorage.setItem("user", user);
       },
       error: function (xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
-        console.log(errorText.message);
 
-        if (
-          errorText.message == "identifier is required , password is required"
-        ) {
+        getKeys.html("LOGIN");
+
+        if (errorText.message == "identifier is required , password is required") {
           $(".error").remove();
           $("#submit").after('<span class="error"></span>');
         } else if (
@@ -351,11 +342,12 @@ $(document).ready(function () {
         url: "https://api.ravepay.co/merchant/accounts/update",
         type: "post",
         data: {
-          merchant_status: "test"
+          merchant_status: "prod"
         },
         headers: {
           "flw-auth-token": flwAuthToken,
-          alt_mode_auth: 0
+          "alt_mode_auth": 0,
+          "v3-xapp-id": 1
         },
         dataType: "json",
         success: function (data) {
@@ -378,7 +370,7 @@ $(document).ready(function () {
           type: "get",
           headers: {
             "flw-auth-token": flwAuthToken,
-            alt_mode_auth: 0
+            "alt_mode_auth": 0
           },
           dataType: "json",
           success: function (data) {
@@ -398,8 +390,7 @@ $(document).ready(function () {
               );
             }
 
-            // opener.location.reload(true);
-            // self.close();
+            
           },
           error: function (xhr, textStatus, errorThrown) {
             var errorText = xhr.responseJSON;
@@ -416,12 +407,20 @@ $(document).ready(function () {
             },
             headers: {
               "flw-auth-token": flwAuthToken,
-              alt_mode_auth: 0
+              "alt_mode_auth": 0
             },
             dataType: "json",
             success: function (data) {
               console.log("just toggled to live");
               console.log(data);
+
+              $("#login_form").html("<div class='success_message'>Your keys have been fetched successfully</div>")
+              setInterval(function() {
+                // opener.location.reload(true);
+                self.close();
+              }, 5000);
+
+           
             },
             error: function (xhr, textStatus, errorThrown) {
               var errorText = xhr.responseJSON;
