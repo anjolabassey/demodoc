@@ -34,9 +34,11 @@ $(document).ready(function() {
     );
    
   }
-    if (user == "null") {
+    if (!localStorage.getItem("user") && !localStorage.getItem("logo")) {
       // console.log("user is null");
-      userDisplay.html(userSpan);
+      userDisplay.html(`<a id="user_info" onClick="openLoginWindow()">
+        <button class="headerButton" id="login">Get API Keys</button>
+      </a>`);
     }
   
   if (businessLogo == "null") {
