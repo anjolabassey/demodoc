@@ -18,31 +18,27 @@ $(document).ready(function() {
   let codebox = $(".codebox");
   let codeboxBanner = $("#banner");
 
-
   user = localStorage.getItem("user");
   businessLogo = localStorage.getItem("logo");
 
-  if (localStorage.getItem("API_secretKey")) {
-    // $(".callouts").removeClass("hide");
-    // $(".callouts").addClass("show");
-    var seckey = localStorage.getItem("API_secretKey");
-    var pubkey = localStorage.getItem("API_publicKey");
+  function displayKeys() {
+    if (localStorage.getItem("API_secretKey")) {
+      // $(".callouts").removeClass("hide");
+      // $(".callouts").addClass("show");
+      var seckey = localStorage.getItem("API_secretKey");
+      var pubkey = localStorage.getItem("API_publicKey");
 
-    $(".doc-content").prepend(
-      `<div class="callouts"><p class="callouts-header">YOUR API KEYS</p><p class="callouts-label">Public key: <span class="callouts-text">${pubkey}<span></p><p class="callouts-label">Secret key: <span class="callouts-text">${seckey}</span></p></div>`
-    );
-   
+      $(".doc-content").prepend(
+        `<div class="callouts"><p class="callouts-header">YOUR API KEYS</p><p class="callouts-label">Public key: <span class="callouts-text">${pubkey}<span></p><p class="callouts-label">Secret key: <span class="callouts-text">${seckey}</span></p></div>`
+      );
+    }
   }
   if (user === null) {
-      console.log("user is null");
-      // userDisplay.html(userSpan);
+    console.log("user is null");
+    // userDisplay.html(userSpan);
   } else {
-
     if (businessLogo == "null") {
       // console.log("logo is null");
-      var imgg = document.createElement("img");
-      imgg.setAttribute("src", businessLogo);
-      imgg.setAttribute("class", "user-image");
 
       var words = user.split(" ");
       var text = "";
@@ -50,30 +46,29 @@ $(document).ready(function() {
         text += this.substring(0, 1);
       });
 
-      //var first_letter = user.substring(0, 1);
-
       var userSpan = $(
-        `<div class='header-info'><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
+        `<div class='header-info'><span class='user-icon'>${text}</span><span class='username'>${user}</span><span id='logout'><i class="fas fa-sort-down"></i><div id="myDropdown" class="dropdown-content hide">
+    <p id='logOut'>Logout</p>
+
+  </div></span></div>`
       );
 
       $("#user_info").remove();
       $(".header-nav").append(userSpan);
     } else {
       // console.log("all is well");
-      var imgg = document.createElement("img");
-      imgg.setAttribute("src", businessLogo);
-      imgg.setAttribute("class", "user-image");
 
       var userSpan = $(
-        `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span></div>`
+        `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span><span id='logout'><i class="fas fa-sort-down"></i><div id="myDropdown" class="dropdown-content hide">
+    <p id='logOut'>Logout</p>
+
+  </div</span>></div>`
       );
 
       $("#user_info").remove();
       $(".header-nav").append(userSpan);
     }
-    
   }
-
 
   function changeTech(value) {
     console.log("changing this tech stack");
@@ -98,6 +93,7 @@ $(document).ready(function() {
         });
 
         $(".doc-content").html(md.render(con));
+        displayKeys();
         $(".doc-content H2").attr("id", "h2");
         localStorage.setItem("path", addedUrl);
 
@@ -190,6 +186,7 @@ $(document).ready(function() {
   };
 
   appendAnchorLinks();
+  displayKeys();
   // Append copy buttons to all code snippets on document ready
   $(".highlight")
     .append(copyButton)
@@ -233,7 +230,7 @@ $(document).ready(function() {
     changeTech("");
   });
 
-  $("#sdk").on("change", function () {
+  $("#sdk").on("change", function() {
     $("#log").html("");
     console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");
@@ -297,6 +294,33 @@ $(document).ready(function() {
         })
         .join("")
     );
+  }
+
+  $("#logout").click(function () {
+    
+    $("#myDropdown").toggle();
+   
+  });
+
+  $("#logOut").click(function() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("logo");
+    location.reload();
+  });
+
+  window.onclick = function (event) {
+    // console.log(event.target);
+    // console.log($("#logout"));
+    if (!event.target.matches("#logout")) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
   }
 
   getKeys.click(function(e) {
@@ -687,5 +711,4 @@ $(document).ready(function() {
       }
     });
   });
-
 });
