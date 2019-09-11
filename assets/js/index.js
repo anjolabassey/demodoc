@@ -21,6 +21,7 @@ $(document).ready(function() {
   let badRating = $("#noButton");
 
   user = localStorage.getItem("user");
+  console.log(typeof user);
   businessLogo = localStorage.getItem("logo");
 
   if (localStorage.getItem("API_secretKey")) {
@@ -34,46 +35,47 @@ $(document).ready(function() {
     );
    
   }
-    if (!localStorage.getItem("user") && !localStorage.getItem("logo")) {
-      // console.log("user is null");
-      userDisplay.html(`<a id="user_info" onClick="openLoginWindow()">
-        <button class="headerButton" id="login">Get API Keys</button>
-      </a>`);
-    }
-  
-  if (businessLogo == "null") {
-    // console.log("logo is null");
-    var imgg = document.createElement("img");
-    imgg.setAttribute("src", businessLogo);
-    imgg.setAttribute("class", "user-image");
-
-    var words = user.split(" ");
-    var text = "";
-    $.each(words, function() {
-      text += this.substring(0, 1);
-    });
-
-    //var first_letter = user.substring(0, 1);
-
-    var userSpan = $(
-      `<div><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
-    );
-
-    $("#user_info").remove();
-    $(".header-nav").append(userSpan);
+  if (user === null) {
+      console.log("user is null");
+      // userDisplay.html(userSpan);
   } else {
-    // console.log("all is well");
-    var imgg = document.createElement("img");
-    imgg.setAttribute("src", businessLogo);
-    imgg.setAttribute("class", "user-image");
 
-    var userSpan = $(
-      `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span></div>`
-    );
+    if (businessLogo == "null") {
+      // console.log("logo is null");
+      var imgg = document.createElement("img");
+      imgg.setAttribute("src", businessLogo);
+      imgg.setAttribute("class", "user-image");
 
-    $("#user_info").remove();
-    $(".header-nav").append(userSpan);
+      var words = user.split(" ");
+      var text = "";
+      $.each(words, function() {
+        text += this.substring(0, 1);
+      });
+
+      //var first_letter = user.substring(0, 1);
+
+      var userSpan = $(
+        `<div><span class='user-icon'>${text}</span><span class='username'>${user}</span></div>`
+      );
+
+      $("#user_info").remove();
+      $(".header-nav").append(userSpan);
+    } else {
+      // console.log("all is well");
+      var imgg = document.createElement("img");
+      imgg.setAttribute("src", businessLogo);
+      imgg.setAttribute("class", "user-image");
+
+      var userSpan = $(
+        `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span></div>`
+      );
+
+      $("#user_info").remove();
+      $(".header-nav").append(userSpan);
+    }
+    
   }
+
 
   function changeTech(value) {
     console.log("changing this tech stack");
