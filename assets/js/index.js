@@ -21,7 +21,6 @@ $(document).ready(function() {
   let badRating = $("#noButton");
 
   user = localStorage.getItem("user");
-  console.log(typeof user);
   businessLogo = localStorage.getItem("logo");
 
   if (localStorage.getItem("API_secretKey")) {
@@ -457,7 +456,7 @@ $(document).ready(function() {
 
               setInterval(function() {
                 opener.location.reload(true);
-                window.close();
+                self.close();
               }, 3000);
             },
             error: function(xhr, textStatus, errorThrown) {
