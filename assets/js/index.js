@@ -1,6 +1,6 @@
 $(document).ready(function() {
   let contentHolder = $("#content");
-  let user, businessLogo, reference, token, addedUrl, currentUrl, currentTech;
+  let user, businessLogo, reference, token, addedUrl, currentTech;
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
@@ -17,8 +17,7 @@ $(document).ready(function() {
   let successTitle = $("#success");
   let codebox = $(".codebox");
   let codeboxBanner = $("#banner");
-  let goodRating = $("#yesButton");
-  let badRating = $("#noButton");
+
 
   user = localStorage.getItem("user");
   businessLogo = localStorage.getItem("logo");
@@ -82,7 +81,7 @@ $(document).ready(function() {
       addedUrl = value;
       console.log("right nav clicked");
     }
-    console.log(value);
+    // console.log(value);
     $.ajax({
       url:
         "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
@@ -100,7 +99,7 @@ $(document).ready(function() {
 
         $(".doc-content").html(md.render(con));
         $(".doc-content H2").attr("id", "h2");
-        localStorage.setItem("feature", addedUrl);
+        localStorage.setItem("path", addedUrl);
 
         // console.log(md.render(con));
 
@@ -228,30 +227,22 @@ $(document).ready(function() {
     $("#log").html("");
     e.preventDefault();
     addedUrl = $(this).attr("id");
+    console.log(addedUrl);
 
     $(this).addClass("active");
     changeTech("");
   });
 
-  // displaying the right transfer pages when the right nav is clicked
-  // $(".right-nav").on("change", ".transfer-select", function (e) {
-  //   var gg = $(this).attr("id");
-  //   addedUrl = localStorage.getItem("feature");
-  //   console.log(localStorage.getItem("feature"));
-  //   changesdk()
-
-  // });
-
-  $("#sdk").on("change", function() {
-    currentUrl = localStorage.getItem("feature");
-    // console.log(localStorage.getItem("feature"));
-    currentTech = localStorage.getItem("feature");
+  $("#sdk").on("change", function () {
+    $("#log").html("");
+    console.log(localStorage.getItem("path"));
+    currentTech = localStorage.getItem("path");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
     console.log(currentTech);
     currentTech = this.value + currentTech;
 
     changeTech(currentTech);
-    localStorage.setItem("feature", currentTech);
+    localStorage.setItem("path", currentTech);
 
     console.log();
   });
@@ -657,13 +648,13 @@ $(document).ready(function() {
   // rating functionality
   $("body").on("click", "#yesButton", function(e) {
     e.preventDefault();
-    console.log("i just upvoted for " + localStorage.getItem("feature"));
+    console.log("i just upvoted for " + localStorage.getItem("path"));
 
     $.ajax({
       url: "http://04ff9f9a.ngrok.io/thumbs-up",
       type: "post",
       data: {
-        url: localStorage.getItem("feature")
+        url: localStorage.getItem("path")
       },
       dataType: "json",
       success: function(data) {
@@ -678,13 +669,13 @@ $(document).ready(function() {
 
   $("body").on("click", "#noButton", function(e) {
     e.preventDefault();
-    console.log("i just downvoted for " + localStorage.getItem("feature"));
+    console.log("i just downvoted for " + localStorage.getItem("path"));
 
     $.ajax({
       url: "http://04ff9f9a.ngrok.io/thumbs-down",
       type: "post",
       data: {
-        url: localStorage.getItem("feature")
+        url: localStorage.getItem("path")
       },
       dataType: "json",
       success: function(data) {
