@@ -865,6 +865,7 @@ input:focus {
 .listing a {
   text-decoration: none;
   color: #637381;
+  cursor: pointer;
 }
 
 .left-nav .listing a {
@@ -874,8 +875,12 @@ input:focus {
 }
 
 .left-nav .listing a:active {
-  color: blueviolet;
+  color: #f5a623;
 }
+.active {
+  color: #f5a623;
+}
+
 .left-nav .sublisting a {
   text-decoration: none;
   color: #637381;

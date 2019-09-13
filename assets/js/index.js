@@ -1,6 +1,6 @@
 $(document).ready(function() {
   let contentHolder = $("#content");
-  let user, businessLogo, reference, token, addedUrl, currentTech, location;
+  let user, businessLogo, reference, token, addedUrl, currentTech, location, navy, nav;
   // let feat = "/node/" + feat + "/overview.md";
   let flwAuthToken;
   let API_publicKey;
@@ -86,12 +86,12 @@ $(document).ready(function() {
         type: "get",
         success: function(data) {
           let linkContent = b64DecodeUnicode(data.content);
-          console.log("path.json: " + linkContent);
           localStorage.setItem("pathLinks", linkContent);
-          var sdk = localStorage
-            .getItem("path")
-            .substring(0, localStorage.getItem("path").indexOf("/", 1));
-          console.log(sdk);
+          
+            var sdk = localStorage
+              .getItem("path")
+              .substring(0, localStorage.getItem("path").indexOf("/", 1));
+        
         },
         error: function(xhr, textStatus, errorThrown) {
           var errorText = xhr.responseJSON;
@@ -172,34 +172,35 @@ $(document).ready(function() {
           });
 
         //  Build out the left navigation
-
         navy = `${localStorage.getItem("pathLinks")}`;
         navy = JSON.parse(navy);
-        // console.log(navy);
+        nav = `${localStorage.getItem("features")}`;
 
+        
         var left_nav = "<ul class='listing'>";
-        navy["header"].forEach(function(item) {
-
+        navy[nav].forEach(function(item) {
           if (localStorage.getItem("sdk") === null) {
             localStorage.setItem("sdk", "node");
           }
-            if (item.identifier == `${localStorage.getItem("sdk")}`) {
-              // console.log(item);
+          if (item.identifier == `${localStorage.getItem("sdk")}`) {
+            // console.log(item);
 
-              left_nav += `<li><a id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
+            left_nav += `<li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
 
-              if (item.subfolderitems) {
-                var subfolder = item.subfolderitems;
-                subfolder.forEach(function(sub) {
-                  left_nav += `<ul class='sublisting listing'><li><a id='${sub.url}' title='Go to ${sub.title}'>${sub.title}</li></a></ul>`;
-                });
-              }
+            if (item.subfolderitems) {
+              var subfolder = item.subfolderitems;
+              subfolder.forEach(function(item) {
+                left_nav += `<ul class='sublisting listing'><li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</li></a></ul>`;
+              });
             }
+          }
         });
 
-        // left_nav += "</ul>";
-
         $(".home").append(left_nav);
+        if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
+          $(".listing").addClass("active");
+        }
+
       },
       error: function(xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
@@ -275,11 +276,13 @@ $(document).ready(function() {
 
   $(".left-nav").on("click", ".get-content", function(e) {
     $("#log").html("");
+    $(".home").html("");
     e.preventDefault();
-    addedUrl = $(this).attr("id");
+    localStorage.setItem("path", $(this).attr("id"));
     console.log(addedUrl);
 
-    $(this).addClass("active");
+    
+    
     changeTech("");
   });
 
@@ -760,7 +763,6 @@ $(document).ready(function() {
     location = localStorage.getItem("currentLocation");
 
     window.location = `${location}docs`;
-    // console.log(`${location}`);
   });
 
   changeTech("");
