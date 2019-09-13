@@ -175,7 +175,7 @@ $(document).ready(function() {
 
         navy = `${localStorage.getItem("pathLinks")}`;
         navy = JSON.parse(navy);
-        console.log(navy);
+        // console.log(navy);
 
         var left_nav = "<ul class='listing'>";
         navy["header"].forEach(function(item) {
@@ -184,7 +184,7 @@ $(document).ready(function() {
             localStorage.setItem("sdk", "node");
           }
             if (item.identifier == `${localStorage.getItem("sdk")}`) {
-              console.log(item);
+              // console.log(item);
 
               left_nav += `<li><a id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
 
@@ -755,12 +755,12 @@ $(document).ready(function() {
     localStorage.setItem("path", `node/${feat}/overview.md`);
 
     localStorage.setItem("currentLocation", window.location.href);
-    console.log(feat);
+    // console.log(feat);
 
-    location = localStorage.getItem("location");
+    location = localStorage.getItem("currentLocation");
 
-    window.location = `/docs`;
-    console.log(`${location}docs`);
+    window.location = `${location}docs`;
+    // console.log(`${location}`);
   });
 
   changeTech("");

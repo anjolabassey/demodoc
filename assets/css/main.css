@@ -256,6 +256,7 @@ font-family: Open-Sans;
   font-size: 18px;
   line-height: 22px;
   box-shadow: none;
+  cursor: pointer;
 }
 .feat-row .card img {
   width: 60px;
