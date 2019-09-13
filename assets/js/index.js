@@ -759,8 +759,8 @@ $(document).ready(function() {
 
     location = localStorage.getItem("location");
 
-    window.location = `${localStorage.getItem("location")}docs`;
-    
+    window.location = `${location}/docs`;
+
   });
 
   changeTech("");
