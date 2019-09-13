@@ -760,7 +760,7 @@ $(document).ready(function() {
     location = localStorage.getItem("location");
 
     window.location = `/docs`;
-    console.log(`${location}docs`);
+    console.log(`${localStorage.getItem("location")}docs`);
   });
 
   changeTech("");
