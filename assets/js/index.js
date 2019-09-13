@@ -1,6 +1,7 @@
 $(document).ready(function() {
   let contentHolder = $("#content");
-  let user, businessLogo, reference, token, addedUrl, currentTech;
+  let user, businessLogo, reference, token, addedUrl, currentTech, location;
+  // let feat = "/node/" + feat + "/overview.md";
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
@@ -71,12 +72,34 @@ $(document).ready(function() {
   }
 
   function changeTech(value) {
-    console.log("changing this tech stack");
-    if (value != "") {
+    console.log("changing this tech stack with " + value);
+    if (value !== "") {
       addedUrl = value;
-      console.log("right nav clicked");
+      console.log("right nav clicked " + addedUrl);
     }
-    // console.log(value);
+    addedUrl = localStorage.getItem("path");
+
+    if (localStorage.getItem("pathLinks") === null) {
+      $.ajax({
+        url:
+          "https://api.github.com/repos/anjolabassey/test-docs/contents/paths.json",
+        type: "get",
+        success: function(data) {
+          let linkContent = b64DecodeUnicode(data.content);
+          console.log("path.json: " + linkContent);
+          localStorage.setItem("pathLinks", linkContent);
+          var sdk = localStorage
+            .getItem("path")
+            .substring(0, localStorage.getItem("path").indexOf("/", 1));
+          console.log(sdk);
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          var errorText = xhr.responseJSON;
+          console.log(errorText);
+        }
+      });
+    }
+
     $.ajax({
       url:
         "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
@@ -84,7 +107,7 @@ $(document).ready(function() {
       type: "get",
       success: function(data) {
         // let con = atob(response.content);
-        console.log(data);
+        // console.log(data);
         let con = b64DecodeUnicode(data.content);
 
         // If you're in the browser, the Remarkable class is already available in the window
@@ -147,6 +170,36 @@ $(document).ready(function() {
             document.execCommand("copy");
             copyArea.remove();
           });
+
+        //  Build out the left navigation
+
+        navy = `${localStorage.getItem("pathLinks")}`;
+        navy = JSON.parse(navy);
+        console.log(navy);
+
+        var left_nav = "<ul class='listing'>";
+        navy["header"].forEach(function(item) {
+
+          if (localStorage.getItem("sdk") === null) {
+            localStorage.setItem("sdk", "node");
+          }
+            if (item.identifier == `${localStorage.getItem("sdk")}`) {
+              console.log(item);
+
+              left_nav += `<li><a id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
+
+              if (item.subfolderitems) {
+                var subfolder = item.subfolderitems;
+                subfolder.forEach(function(sub) {
+                  left_nav += `<ul class='sublisting listing'><li><a id='${sub.url}' title='Go to ${sub.title}'>${sub.title}</li></a></ul>`;
+                });
+              }
+            }
+        });
+
+        // left_nav += "</ul>";
+
+        $(".home").append(left_nav);
       },
       error: function(xhr, textStatus, errorThrown) {
         var errorText = xhr.responseJSON;
@@ -232,34 +285,17 @@ $(document).ready(function() {
 
   $("#sdk").on("change", function() {
     $("#log").html("");
+    $(".home").html("");
     console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
     console.log(currentTech);
     currentTech = this.value + currentTech;
-
-    changeTech(currentTech);
+    localStorage.setItem("sdk", this.value);
     localStorage.setItem("path", currentTech);
 
-    console.log();
+    changeTech(currentTech);
   });
-
-  // // navigation per say
-  // $('.default-nav').show();
-  // $(".secondary-nav").hide();
-  // $("#sdk").on("change", function () {
-  //   $(".default-nav").hide();
-
-  //   // add elements inside it
-  //   var imgg = document.createElement("img");
-  //     imgg.setAttribute("src", './img/bills.png');
-  //     // imgg.setAttribute("class", "anchor");
-  //     // imgg.innerHTML = linkContent;
-
-  //   $(".secondary-nav").append(imgg);
-
-  //   $(".secondary-nav").show();
-  // });
 
   // displaying search modal when seach bar is clicked
   $(".searchWrapper").click(function() {
@@ -296,19 +332,19 @@ $(document).ready(function() {
     );
   }
 
-  $("#logout").click(function () {
-    
+  $("#logout").click(function() {
     $("#myDropdown").toggle();
-   
   });
 
   $("#logOut").click(function() {
     localStorage.removeItem("user");
     localStorage.removeItem("logo");
+    localStorage.removeItem("API_secretKey");
+    localStorage.removeItem("API_publicKey");
     location.reload();
   });
 
-  window.onclick = function (event) {
+  window.onclick = function(event) {
     // console.log(event.target);
     // console.log($("#logout"));
     if (!event.target.matches("#logout")) {
@@ -321,7 +357,7 @@ $(document).ready(function() {
         }
       }
     }
-  }
+  };
 
   getKeys.click(function(e) {
     e.preventDefault();
@@ -711,4 +747,21 @@ $(document).ready(function() {
       }
     });
   });
+
+  $("body").on("click", ".feat", function(e) {
+    e.preventDefault();
+    feat = $(this).attr("id");
+    localStorage.setItem("features", feat);
+    localStorage.setItem("path", `node/${feat}/overview.md`);
+
+    localStorage.setItem("currentLocation", window.location.href);
+    console.log(feat);
+
+    location = localStorage.getItem("location");
+
+    window.location = `/docs`;
+    console.log(`${location}docs`);
+  });
+
+  changeTech("");
 });

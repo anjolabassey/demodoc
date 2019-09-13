@@ -10,47 +10,8 @@ layout: default
 
     <div class="home">
 
-      <!-- onchange of that select box (identifier) {
-        list base what was passed
-      } else {
-
-      } -->
-      <!-- <div class="secondary-nav">Anjola is beautiful.</div> -->
-      <!-- <div class="default-nav"> -->
-        <h1 class="page-heading">{{ page.identifier }}</h1>
-
-        <ul class="listing">
-          {% for item in site.data.transfer.header %}
-
-          <li class="menu-item-{{ loop.index }}">
-            {%- if item.identifier == page.identifier -%}
-
-            <a
-              class="get-content"
-              id="{{ item.url }}"
-              href=""
-              title="Go to {{ item.title }}"
-              >{{ item.title }}
-            </a>
-            <ul class="sublisting listing">
-              {% for entry in item.subfolderitems %}
-              <li>
-                <a
-                  class="get-content"
-                  id="{{ entry.url }}"
-                  href=""
-                  title="Go to {{ entry.title }}"
-                  >{{ entry.title }}</a
-                >
-              </li>
-              {% endfor %}
-            </ul>
-            {%- endif -%}
-          </li>
-          {% endfor %}
-        </ul>
-      <!-- </div> -->
     </div>
+
   </div>
 
   <div class="doc-content" itemprop="articleBody">
