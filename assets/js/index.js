@@ -130,10 +130,10 @@ $(document).ready(function() {
           }
         });
 
-        $("#technology").append("<h4>TABLE OF CONTENTS</h4>");
+        $("#content-table").append("<h4>TABLE OF CONTENTS</h4>");
         $("<ol class='listing'></ol>")
           .append(nodeNames.join(""))
-          .appendTo("#technology");
+          .appendTo("#content-table");
 
         appendAnchorLinks();
         appendTechStack();
@@ -288,7 +288,7 @@ $(document).ready(function() {
 
   //  Changing the page content based on the left menu link item clicked on
   $(".left-nav").on("click", ".get-content", function(e) {
-    $("#technology").html("");
+    $("#content-table").html("");
     $(".left-nav-items").html("");
     e.preventDefault();
     localStorage.setItem("path", $(this).attr("id"));
