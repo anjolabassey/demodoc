@@ -400,7 +400,7 @@ $(document).ready(function() {
 
     getKeys.html("<i class='fa fa-spinner fa-spin'></i>Fetching Keys");
 
-    // getKeys.attr("disabled", true);
+    getKeys.attr("disabled", "disabled");
 
     var loggedIn = $.ajax({
       url: "https://api.ravepay.co/login",

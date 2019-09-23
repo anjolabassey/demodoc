@@ -77,15 +77,15 @@ body {
   border: 1px solid #979797;
 }
 .user-icon {
-  vertical-align: middle;
-  width: 25px;
-  height: 25px;
-  padding: 10px;
-  border-radius: 50%;
-  margin-right: 10px;
+  /* vertical-align: middle; */
+
   background: #f5a623;
   border: 1px solid #979797;
   color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin-right: 10px;
 }
 .username {
   font-family: Open-Sans;
@@ -155,6 +155,13 @@ body {
 }
 .header-info {
   display: inline;
+  font-family: Open-Sans-Semibold;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #333333;
+  margin-right: 37px;
+  margin-top: 32px;
 }
 .heroWrapper {
   /* position: relative; */
@@ -213,13 +220,12 @@ body {
 
 .contentWrapper {
   margin: 0 100px;
-  
 }
 /* features section */
 .features {
-	left: 0;
-	right: 0;
-	margin: auto;
+  left: 0;
+  right: 0;
+  margin: auto;
   position: absolute;
   z-index: 2;
   background-color: #ffffff;
@@ -245,7 +251,7 @@ body {
   margin-top: 25px !important;
   margin-bottom: 61px;
   border-radius: 17.57px;
-  background: #E5E5E5;
+  background: #e5e5e5;
 }
 .feat-row {
   display: flex;
