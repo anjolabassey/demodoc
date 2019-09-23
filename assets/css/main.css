@@ -104,6 +104,7 @@ body {
 #logout {
   position: relative;
   display: inline-block;
+  margin-right: 50px !important;
 }
 .dropdown-content {
   /* display: none; */
@@ -538,6 +539,9 @@ pre {
   padding: 0 250px;
   padding-bottom: 0px !important;
 }
+.guides-section .card {
+  margin-bottom: 10px;
+}
 .guides-section .card-body {
   padding: 23px;
   font-family: Open-Sans;
@@ -608,6 +612,11 @@ pre {
 .help a {
   color: #ffffff;
   text-decoration-line: none;
+}
+.help #helptext {
+  position: relative;
+  display: inline-block;
+  /* margin-right: 50px !important; */
 }
 .help #yesButton {
   background-color: #f5a623;
@@ -845,6 +854,14 @@ input:focus {
 }
 .doc-help {
   margin: 0 25%;
+}
+.menu {
+  margin-top: 30px;
+}
+#tech-stack {
+  font-family: SFProDisplay;
+  font-size: 20px;
+  line-height: 23px;
 }
 .left-nav {
   margin-top: 35px;

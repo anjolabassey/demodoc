@@ -123,23 +123,24 @@ $(document).ready(function() {
         // console.log(md.render(con));
 
         // console.log($("pre").html());
-        $("code").addClass("highlight");
+        $("pre").addClass("highlight");
 
         (html = $.parseHTML(md.render(con))), (nodeNames = []);
 
         $.each(html, function(i, el) {
           if (el.nodeName == "H2") {
             nodeNames[i] =
-              '<li class="listing"><a href="#h2">' + el.innerText + "</li></a>";
+              '<li><a href="#h2">' + el.innerText + "</li></a>";
           }
         });
 
         $("#log").append("<h4>TABLE OF CONTENTS</h4>");
-        $("<ol></ol>")
+        $("<ol class='listing'></ol>")
           .append(nodeNames.join(""))
           .appendTo("#log");
 
         appendAnchorLinks();
+        appendTechStack();
 
         // Append copy buttons to all code sinppets on document ready
         $(".highlight")
@@ -200,7 +201,7 @@ $(document).ready(function() {
           }
         });
 
-        $(".home").append(left_nav);
+        $(".left-nav-items").append(left_nav);
         if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
           $(".listing").addClass("active");
         }
@@ -243,7 +244,13 @@ $(document).ready(function() {
     }
   };
 
+  // Getting and displaying the technology(SDK) that was chosen
+  const appendTechStack = function () {
+    $("#tech-stack").html(`${localStorage.getItem("sdk")} SDK`);
+  }
+
   appendAnchorLinks();
+  appendTechStack();
   displayKeys();
   // Append copy buttons to all code snippets on document ready
   $(".highlight")
@@ -280,7 +287,7 @@ $(document).ready(function() {
 
   $(".left-nav").on("click", ".get-content", function(e) {
     $("#log").html("");
-    $(".home").html("");
+    $(".left-nav-items").html("");
     e.preventDefault();
     localStorage.setItem("path", $(this).attr("id"));
     console.log(addedUrl);
@@ -349,6 +356,10 @@ $(document).ready(function() {
     );
   }
 
+   $("#noButton").click(function() {
+     $("#myDropdown").toggle();
+   });
+  
   $("#logout").click(function() {
     $("#myDropdown").toggle();
   });
