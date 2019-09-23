@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
- 
 
 <div class="heroWrapper">
   <div class="hero">
@@ -15,10 +14,10 @@ layout: default
         </p>
       </div>
       <div class="button-row">
-          <a onClick="MyWindow=window.open('{{site.baseurl}}/login','MyWindow','width=600,height=300'); return false;">
-              <button class="apiKeyButton" id="login">Get API Keys</button>
-          </a>
-         
+        <a onClick="MyWindow=window.open('{{site.baseurl}}/login','MyWindow','width=600,height=300'); return false;">
+          <button class="apiKeyButton" id="login">Get API Keys</button>
+        </a>
+
         <a href="https://flutterwave.slack.com/archives/DH623D7AS/p1558451971000200">
           <button id="slack">
             <p>Get help</p>
@@ -27,11 +26,9 @@ layout: default
       </div>
     </div>
   </div>
-</div>
 
-<div class="contentWrapper">
-<div class="features">
-    <p id="title-text"><b>What do you want to do?</b></p>
+  <div class="features">
+    <p id="title-text">What do you want to do?</p>
     <hr>
     <div class="feat-row">
         <div class="card">
@@ -110,25 +107,42 @@ layout: default
         </div>
     </div>
 </div>
+</div>
 
-<div class="tryWrapper">
-    <p id="one">Add Rave to your project</p>
-    <p id="two">Try the Rave API in seconds. Charge a card, tokenize a card, create
-                a subscription and more by following the steps below.</p>
-    <div class="try">
+  <div class="contentWrapper">
+    <div class="tryWrapper">
+      <p id="title">Add Rave to your project</p>
+      <p id="sub-title">
+        Try the Rave API in seconds. Charge a card, tokenize a card, create a
+        subscription and more by following the steps below.
+      </p>
+      <div class="try">
         <div class="tryHeader">
-            <div id="nav">
-                <p id="charge" class="text-current"><span class="trynow-current">1</span>Charge card</p>
-                <p id="verify" class="text-waiting"><span class="trynow-waiting">2</span>Verify</p>
-                <p id="paymentplan" class="text-waiting"><span class="trynow-waiting">3</span>Create Payment Plan</p>
-                <p id="tokenize" class="text-waiting"><span class="trynow-waiting">4</span>Tokenized Recurring Charge</p>
-                <p id="success" class="text-waiting"><span class="trynow-waiting">5</span>Success!</p>
-            </div>
-            <p id="banner">You can embed rave on your website by using the getpaidSetup function. Enter any of our test card details on our inline modal </p>      
+          <div id="nav">
+            <p id="charge" class="text-current">
+              <span class="trynow-current">1</span>Charge card
+            </p>
+            <p id="verify" class="text-waiting">
+              <span class="trynow-waiting">2</span>Verify
+            </p>
+            <p id="paymentplan" class="text-waiting">
+              <span class="trynow-waiting">3</span>Create Payment Plan
+            </p>
+            <p id="tokenize" class="text-waiting">
+              <span class="trynow-waiting">4</span>Tokenized Recurring Charge
+            </p>
+            <p id="success" class="text-waiting">
+              <span class="trynow-waiting">5</span>Success!
+            </p>
+          </div>
+          <p id="banner">
+            You can embed rave on your website by using the getpaidSetup
+            function. Enter any of our test card details on the modal
+          </p>
         </div>
-                
-        <div class="codebox">          
-            <pre>
+
+        <div class="codebox">
+          <pre>
                 function payWithRave() {
                 var x = getpaidSetup({
                 PBFPubKey: API_publicKey,
@@ -152,62 +166,93 @@ layout: default
                     });
                 }
                 
-            </pre> 
+            </pre
+          >
 
-            <button id="pay" class="btn show">Test payment</button>
-                    
-        </div>                 
+          <button id="pay" class="btn show">Test payment</button>
+        </div>
+      </div>
     </div>
-            
-</div>
 
-<div class="guides-section">
-    <p id="title">Guides and Resources</p>
-    <p id="sub-title">Learn and explore best practices and the different ways to work with the Rave APIs to enable
-    amazing ways to innovate.</p>
-    <div class="guides">
+    <div class="guides-section">
+      <p id="title">Guides and Resources</p>
+      <p id="sub-title">
+        Learn and explore best practices and the different ways to work with the
+        Rave APIs to enable amazing ways to innovate.
+      </p>
+      <div class="guides">
         <div class="card">
-            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
-            <div class="card-body">
-                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
-                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
-                accumen pulvinar.</p>
-            </div>
-            <div class="card-footer">
-                <p>Read More...</p>
-            </div>
+          <img
+            src="..{{ site.baseurl }}/assets/img/learning-vue-step-by-step.png"
+            alt="Avatar"
+          />
+          <div class="card-body">
+            <p>
+              <b
+                >Building a complete checkout system using Rave, Vuejs &
+                Nodejs</b
+              >
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec
+              sollicitudin arcu at elementum velit accumen pulvinar.
+            </p>
+          </div>
+          <div class="card-footer">
+            <p>Read More...</p>
+          </div>
         </div>
         <div class="card">
-            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
-            <div class="card-body">
-                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
-                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
-                accumen pulvinar.</p>
-            </div>
-            <div class="card-footer">
-                <p>Read More...</p>
-            </div>
+          <img
+            src="..{{ site.baseurl }}/assets/img/learning-vue-step-by-step.png"
+            alt="Avatar"
+          />
+          <div class="card-body">
+            <p>
+              <b
+                >Building a complete checkout system using Rave, Vuejs &
+                Nodejs</b
+              >
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec
+              sollicitudin arcu at elementum velit accumen pulvinar.
+            </p>
+          </div>
+          <div class="card-footer">
+            <p>Read More...</p>
+          </div>
         </div>
         <div class="card">
-            <img src="..{{site.baseurl}}/assets/img/learning-vue-step-by-step.png" alt="Avatar" />
-            <div class="card-body">
-                <p><b>Building a complete checkout system using Rave, Vuejs & Nodejs</b></p>
-                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec sollicitudin arcu at elementum velit
-                            accumen pulvinar.</p>
-            </div>
-            <div class="card-footer">
-                <p>Read More...</p>
-            </div>
+          <img
+            src="..{{ site.baseurl }}/assets/img/learning-vue-step-by-step.png"
+            alt="Avatar"
+          />
+          <div class="card-body">
+            <p>
+              <b
+                >Building a complete checkout system using Rave, Vuejs &
+                Nodejs</b
+              >
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consecte adipiscing elit. Donec
+              sollicitudin arcu at elementum velit accumen pulvinar.
+            </p>
+          </div>
+          <div class="card-footer">
+            <p>Read More...</p>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-</div>
-
-<!-- <script>
+  <!-- <script>
   function openDocs() {
     //   var selected = $(this).attr("id");
     //   console.log(selected);
 //    window.location = "{{site.baseurl}}/docs";
   }
 </script> -->
+</div>

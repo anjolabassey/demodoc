@@ -16,6 +16,7 @@ Step 1
 Install rave in your project
 
 
+
 ```
 npm install ravepay
 ```
@@ -26,6 +27,7 @@ Step 2
 ```
 var Ravepay = require('ravepay');
 var rave = new Ravepay(PUBLICK_KEY, SECRET_KEY, PRODUCTION_FLAG);
+var gfj = ["djhuh", "nhbfduh"];
 ```
 
 **If you pass true as the value for PRODUCTION_FLAG, the library will use the production url
@@ -35,6 +37,7 @@ as the base for all calls. Otherwise it will use the staging base url;**
 {% highlight javascript %}
 var rave = new Ravepay(PUBLICK_KEY, SECRET_KEY, PRODUCTION_FLAG); //Base url is 'http://'
 var rave = new Ravepay(PUBLICK_KEY, SECRET_KEY, true); //Base url is 'http://api.ravepay.co'
+var gfj = ["djhuh", "nhbfduh"];
 {% endhighlight %}
 
 

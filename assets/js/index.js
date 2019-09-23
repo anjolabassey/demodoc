@@ -106,7 +106,6 @@ $(document).ready(function() {
         addedUrl,
       type: "get",
       success: function(data) {
-        // let con = atob(response.content);
         // console.log(data);
         let con = b64DecodeUnicode(data.content);
 
@@ -117,13 +116,14 @@ $(document).ready(function() {
 
         $(".doc-content").html(md.render(con));
         displayKeys();
-        $(".doc-content H2").attr("id", "h2");
+        // console.log(md.render(con));
+        $(".doc-content H2").attr("id", `h2`);
         localStorage.setItem("path", addedUrl);
 
         // console.log(md.render(con));
 
         // console.log($("pre").html());
-        $("pre").addClass("highlight");
+        $("code").addClass("highlight");
 
         (html = $.parseHTML(md.render(con))), (nodeNames = []);
 
@@ -174,6 +174,10 @@ $(document).ready(function() {
         //  Build out the left navigation
         navy = `${localStorage.getItem("pathLinks")}`;
         navy = JSON.parse(navy);
+        if (localStorage.getItem("features") === null) {
+          console.log("kjhbv")
+          localStorage.setItem("features", "transfers");
+        }
         nav = `${localStorage.getItem("features")}`;
 
         
@@ -325,6 +329,16 @@ $(document).ready(function() {
   // Decoding string from github API response
   function b64DecodeUnicode(str) {
     // Going backwards: from bytestream, to percent-encoding, to original string.
+    console.log(
+      decodeURIComponent(
+        atob(str)
+          .split("")
+          .map(function(c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      )
+    );
     return decodeURIComponent(
       atob(str)
         .split("")
