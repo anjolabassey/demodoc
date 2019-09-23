@@ -299,7 +299,7 @@ $(document).ready(function() {
 
   $("#sdk").on("change", function() {
     $("#log").html("");
-    $(".home").html("");
+    $(".left-nav-items").html("");
     console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
