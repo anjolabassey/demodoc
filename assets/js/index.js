@@ -22,10 +22,12 @@ $(document).ready(function() {
   user = localStorage.getItem("user");
   businessLogo = localStorage.getItem("logo");
 
+ 
+  // $(".left-nav .listing a:first-child").css("color", "red");
+
+  // Dispalys the API keys in a callout
   function displayKeys() {
     if (localStorage.getItem("API_secretKey")) {
-      // $(".callouts").removeClass("hide");
-      // $(".callouts").addClass("show");
       var seckey = localStorage.getItem("API_secretKey");
       var pubkey = localStorage.getItem("API_publicKey");
 
@@ -39,8 +41,6 @@ $(document).ready(function() {
     // userDisplay.html(userSpan);
   } else {
     if (businessLogo == "null") {
-      // console.log("logo is null");
-
       var words = user.split(" ");
       var text = "";
       $.each(words, function() {
@@ -61,9 +61,7 @@ $(document).ready(function() {
 
       var userSpan = $(
         `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span><span id='logout'><i class="fas fa-sort-down"></i><div id="myDropdown" class="dropdown-content hide">
-    <p id='logOut'>Logout</p>
-
-  </div</span>></div>`
+    <p id='logOut'>Logout</p></div</span>></div>`
       );
 
       $("#user_info").remove();
@@ -71,6 +69,7 @@ $(document).ready(function() {
     }
   }
 
+  //  Changing the technology stack chosen
   function changeTech(value) {
     console.log("changing this tech stack with " + value);
     if (value !== "") {
@@ -120,9 +119,6 @@ $(document).ready(function() {
         $(".doc-content H2").attr("id", `h2`);
         localStorage.setItem("path", addedUrl);
 
-        // console.log(md.render(con));
-
-        // console.log($("pre").html());
         $("pre").addClass("highlight");
 
         (html = $.parseHTML(md.render(con))), (nodeNames = []);
@@ -188,7 +184,6 @@ $(document).ready(function() {
             localStorage.setItem("sdk", "node");
           }
           if (item.identifier == `${localStorage.getItem("sdk")}`) {
-            // console.log(item);
 
             left_nav += `<li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
 
@@ -224,13 +219,7 @@ $(document).ready(function() {
     id: "copied"
   });
 
-  function displayUser() {
-    $("#login").remove();
-    $("user-image").append(userSpan);
-    $(".header-nav").append(userInfo);
-  }
-
-  // Anchor links functionality for all headers
+  // Append anchor links for all headers
   const appendAnchorLinks = function() {
     const headings = document.querySelectorAll("h2,h3");
     const linkContent = "  &#9875";
@@ -246,7 +235,19 @@ $(document).ready(function() {
 
   // Getting and displaying the technology(SDK) that was chosen
   const appendTechStack = function () {
-    $("#tech-stack").html(`${localStorage.getItem("sdk")} SDK`);
+    switch (localStorage.getItem("sdk")) {
+      case "node":
+        $("#tech-stack").html("Nodejs SDK");
+        break;
+      case "php":
+        $("#tech-stack").html("PHP SDK");
+        break;
+      case "python":
+        $("#tech-stack").html("Python SDK");
+      default:
+        "default"
+    }
+    
   }
 
   appendAnchorLinks();
@@ -285,20 +286,19 @@ $(document).ready(function() {
       copyArea.remove();
     });
 
+  //  Changing the page content based on the left menu link item clicked on
   $(".left-nav").on("click", ".get-content", function(e) {
     $("#log").html("");
     $(".left-nav-items").html("");
     e.preventDefault();
     localStorage.setItem("path", $(this).attr("id"));
-    console.log(addedUrl);
-
-    
-    
+    console.log(addedUrl);  
     changeTech("");
   });
 
-  $("#sdk").on("change", function() {
-    $("#log").html("");
+  // Changing the technology functionality
+  $("#technology").on("change", function() {
+    $("#content-table").html("");
     $(".left-nav-items").html("");
     console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");

@@ -838,7 +838,7 @@ input:focus {
 
 .docContainer {
   display: flex;
-  padding: 0 100px;
+  padding: 0 70px;
   /* margin: 35px 150px; */
   /* justify-content: space-between; */
 }
@@ -855,13 +855,18 @@ input:focus {
 .doc-help {
   margin: 0 25%;
 }
-.menu {
+.nav-title {
   margin-top: 30px;
 }
 #tech-stack {
   font-family: SFProDisplay;
   font-size: 20px;
   line-height: 23px;
+}
+
+.fa-angle-left {
+  margin-right: 5px !important;
+
 }
 .left-nav {
   margin-top: 35px;
@@ -909,9 +914,6 @@ input:focus {
   text-align: right;
 }
 
-.left-nav .listing a:active {
-  color: #f5a623;
-}
 .active {
   color: #f5a623;
 }

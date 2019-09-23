@@ -4,8 +4,8 @@ layout: docs-default
 
 <div class="docContainer" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="left-nav">
-    <a class="menu" href="{{ site.url }}{{ site.baseurl }}">
-      <i class="fas fa-angle-left">Back</i>
+    <a class="nav-title" href="{{ site.url }}{{ site.baseurl }}">
+      <i class="fas fa-angle-left"></i><span>Back</span>
     </a>
 
     <p id="tech-stack"></p>
@@ -22,7 +22,7 @@ layout: docs-default
   </div>
 
   <div class="right-nav">
-    <p class="menu">TECHNOLOGIES</p>
+    <p class="nav-title">TECHNOLOGIES</p>
 
     <!-- <select id="sdk" name="sdk" class="listing">
       <option value="">Select Technology</option>
@@ -34,7 +34,7 @@ layout: docs-default
       {% endif %} {% endfor %}
     </select> -->
 
-    <select id="sdk" name="sdk" class="listing">
+    <select id="technology" name="sdk" class="listing">
       <option value="">Select Technology</option>
       {% for p in site.data.sdk.header %} 
 
@@ -45,14 +45,13 @@ layout: docs-default
     </select>
 
     <hr />
-    <div id="log"></div>
+    <div id="content-table"></div>
 
     {% for item in page.subnav %}
     <a href="{{ item.url }}">{{ item.title }}</a>
     {% endfor %}
   </div>
 
-  <!-- <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a> -->
 </div>
 
 <div class="doc-help">
