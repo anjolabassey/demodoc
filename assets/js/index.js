@@ -1,6 +1,6 @@
 $(document).ready(function() {
   let contentHolder = $("#content");
-  let user, businessLogo, reference, token, addedUrl, currentTech, location, navy, nav;
+  let user, businessLogo, reference, token, addedUrl, currentTech, location, pathLinks, feature;
   // let feat = "/node/" + feat + "/overview.md";
   let flwAuthToken;
   let API_publicKey;
@@ -57,7 +57,6 @@ $(document).ready(function() {
       $("#user_info").remove();
       $(".header-nav").append(userSpan);
     } else {
-      // console.log("all is well");
 
       var userSpan = $(
         `<div class='header-info'><img class='user-image' src=${businessLogo}><span class='username'>${user}</span><span id='logout'><i class="fas fa-sort-down"></i><div id="myDropdown" class="dropdown-content hide">
@@ -143,24 +142,21 @@ $(document).ready(function() {
           .append(copyButton)
           .click(".copy-btn", function() {
             $("#inputContainer").append(copyArea);
+            
             var content = $(this)
               .text()
               .slice(0, -4);
 
-            $("#copied").val(content);
-
-            var pub = content.search("pin");
+            var pub = content.search("npm");
             var sec = content.search("ravepay");
-            if (pub > 0) {
-              content = content.replace("pin", "newpin");
-              $("#copied").val(content);
-            } else if (sec > 0) {
-              content = content.replace("ravepay", "newRavepay");
-              $("#copied").val(content);
-            } else {
-              console.log("not here");
-            }
 
+            if (pub > 0 || sec > 0) {
+              content = content.replace("npm", "newNpm");
+              content = content.replace("ravepay", "newRavepay");
+              
+            }
+          
+            $("#copied").val(content);
             var copyText = $("#copied");
 
             copyText.select();
@@ -169,17 +165,17 @@ $(document).ready(function() {
           });
 
         //  Build out the left navigation
-        navy = `${localStorage.getItem("pathLinks")}`;
-        navy = JSON.parse(navy);
+        pathLinks = `${localStorage.getItem("pathLinks")}`;
+        pathLinks = JSON.parse(pathLinks);
         if (localStorage.getItem("features") === null) {
           console.log("kjhbv")
           localStorage.setItem("features", "transfers");
         }
-        nav = `${localStorage.getItem("features")}`;
+        feature = `${localStorage.getItem("features")}`;
 
         
         var left_nav = "<ul class='listing'>";
-        navy[nav].forEach(function(item) {
+        pathLinks[feature].forEach(function(item) {
           if (localStorage.getItem("sdk") === null) {
             localStorage.setItem("sdk", "node");
           }
@@ -209,10 +205,8 @@ $(document).ready(function() {
     });
   }
 
-  var copyButton = $("<button/>", {
-    text: "Copy",
-    class: "copy-btn"
-  });
+ 
+  var copyButton = $("<button class='copy-btn'>Copy</button>")
   var copyArea = $("<input />", {
     placeholder: "placeholder for copied text",
     class: "copy-area",
@@ -253,39 +247,7 @@ $(document).ready(function() {
   appendAnchorLinks();
   appendTechStack();
   displayKeys();
-  // Append copy buttons to all code snippets on document ready
-  $(".highlight")
-    .append(copyButton)
-    .click(".copy-btn", function() {
-      $("#inputContainer").append(copyArea);
-      var content = $(this)
-        .text()
-        .slice(0, -4);
-
-      $("#copied").val(content);
-
-      API_publicKey = localStorage.getItem("API_publicKey");
-      API_secretKey = localStorage.getItem("API_secretKey");
-
-      var pub = content.search("pin");
-      var sec = content.search("ravepay");
-      if (pub > 0) {
-        content = content.replace("pin", "newpin");
-        $("#copied").val(content);
-      } else if (sec > 0) {
-        content = content.replace("ravepay", "newRavepay");
-        $("#copied").val(content);
-      } else {
-        console.log("not here");
-      }
-
-      var copyText = $("#copied");
-
-      copyText.select();
-      document.execCommand("copy");
-      copyArea.remove();
-    });
-
+  
   //  Changing the page content based on the left menu link item clicked on
   $(".left-nav").on("click", ".get-content", function(e) {
     $("#content-table").html("");
@@ -336,16 +298,6 @@ $(document).ready(function() {
   // Decoding string from github API response
   function b64DecodeUnicode(str) {
     // Going backwards: from bytestream, to percent-encoding, to original string.
-    console.log(
-      decodeURIComponent(
-        atob(str)
-          .split("")
-          .map(function(c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      )
-    );
     return decodeURIComponent(
       atob(str)
         .split("")
@@ -791,4 +743,16 @@ $(document).ready(function() {
   });
 
   changeTech("");
+
+  // The responsive header navigation
+  if ($("#close-header").text() == "☰") {
+    $("#close-header").text("✖");
+  } else {
+    $("#close-header").text("☰");
+  }
+
+  $("#close-header").click(function () {
+    $(".header-nav").toggle("slow");
+  })
+  
 });

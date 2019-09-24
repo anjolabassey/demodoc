@@ -63,6 +63,7 @@ body {
   border-radius: 20.25px;
   width: 513px;
   height: 40px;
+  outline: none;
   -webkit-appearance: none;
 
   padding: 0 24px;
@@ -124,6 +125,9 @@ body {
 }
 .header-nav {
   display: flex;
+}
+#close-header {
+  display: none;
 }
 
 .header-nav a {
@@ -291,7 +295,8 @@ body {
   font-family: Flutterwave;
 }
 .feat-row .card-body p:nth-child(2) {
-  font-size: 14.4px;
+  /* font-size: 14.4px; */
+  font-size: 1vw;
   line-height: 21px;
   font-family: F-Wave-Regular;
 }
@@ -312,7 +317,7 @@ body {
 .tryWrapper {
   text-align: center;
 }
-.tryWrapper #title {
+#title {
   font-size: 38px;
   line-height: 46px;
   margin-bottom: 12px;
@@ -320,7 +325,7 @@ body {
   font-family: Flutterwave;
   padding-bottom: 0px !important;
 }
-.tryWrapper #sub-title {
+#sub-title {
   font-weight: normal;
   font-style: normal;
   font-family: Open-Sans;
@@ -343,7 +348,8 @@ body {
   display: flex;
   flex-direction: column;
   font-weight: 600;
-  font-size: 14px;
+  /* font-size: 14px; */
+  font-size: 1vw;
   font-family: Open-Sans;
 }
 #nav {
@@ -517,19 +523,7 @@ pre {
   color: #f5a623;
 }
 
-/* guides section */
-.guides-section {
-  text-align: center;
-  margin-top: 84px;
-}
-.guides-section #title {
-  font-size: 38px;
-  line-height: 46px;
-  font-family: Flutterwave;
-  margin-top: 84px;
-  margin-bottom: 12px;
-}
-.guides-section #sub-title {
+#sub-title {
   font-weight: normal;
   font-family: Open-Sans;
   font-size: 24px;
@@ -539,24 +533,38 @@ pre {
   padding: 0 250px;
   padding-bottom: 0px !important;
 }
+
+/* guides section */
+.guides-section {
+  text-align: center;
+  margin: 5px auto;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
 .guides-section .card {
-  margin-bottom: 10px;
+  margin-bottom: 60px;
+  max-width: 363px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 300px;
 }
 .guides-section .card-body {
   padding: 23px;
   font-family: Open-Sans;
   font-style: normal;
+  font-size: 17.6px;
+  line-height: 24px;
+  color: #2a3255;
 }
-.guides-section .card-body p:first {
-  font-weight: bold;
+.guides-section .card-body p:nth-child(1) {
+  font-weight: 900;
 }
 .guides-section .card-body p:nth-child(2) {
   font-weight: normal;
-}
-.guides {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 /* card styling */
@@ -590,17 +598,15 @@ pre {
 }
 
 /* help section */
-.help-section {
-  /* padding: 5%; */
-}
 .help {
   display: flex;
-  padding: 17px;
   background: #f5f5f5;
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  margin-top: 61.2px;
+  margin: 0 7%;
+  padding: 3% 0;
+  margin-bottom: 89px;
 }
 .help p {
   font-size: 22px;
@@ -751,23 +757,25 @@ pre {
 }
 
 /* needhelp styling */
-#tech-help {
-  text-align: left;
+.tech-help {
+  text-align: left !important;
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
   color: #333333;
-  margin-top: 33px;
-  margin-bottom: 96px;
   font-family: Open-Sans;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 82px;
 }
-#tech-help p:first-child {
+.tech-help p:first-child {
   font-weight: bold;
   font-size: 20px;
   line-height: 27px;
   font-family: Open-Sans;
 }
-#tech-help a {
+.tech-help a {
   text-decoration: none;
   color: #1d75b3;
 }
@@ -781,7 +789,7 @@ pre {
   justify-content: center;
   height: 397px;
   background: url("../img/slack_bg.png") no-repeat center;
-  background-size: cover;
+  /* background-size: cover; */
   color: #ffffff;
   margin-top: 84px;
 }
@@ -852,9 +860,6 @@ input:focus {
   margin: 35px auto;
   font-family: Open-Sans;
 }
-.doc-help {
-  margin: 0 25%;
-}
 .nav-title {
   margin-top: 30px;
 }
@@ -866,7 +871,6 @@ input:focus {
 
 .fa-angle-left {
   margin-right: 5px !important;
-
 }
 .left-nav {
   margin-top: 35px;
@@ -939,14 +943,17 @@ input:focus {
   z-index: 2;
   cursor: pointer;
   border: none;
-  /* padding: 2px 9px; */
+  outline: none;
+  padding: 5px 10px;
   color: #555555;
   background: #ffffff;
   box-shadow: 1px 1px 3px rgba(50, 50, 54, 0.13),
     0px 0px 3px rgba(63, 63, 68, 0.05);
   border-radius: 2px;
   font-family: Open-Sans;
-  font-size: 14px;
+  font-size: 8px;
+  line-height: 11px;
+  margin-bottom: 30px;
 }
 
 .copy-btn:hover {
@@ -955,11 +962,10 @@ input:focus {
     0px 0px 5px rgba(63, 63, 68, 0.05);
 }
 .copy-btn:before {
-  content: url(../img/Group.png);
-  width: 15px;
-  float: left;
-  margin-right: 3px;
-  margin-bottom: 3px;
+  content: url(../img/Group.svg);
+  position: relative;
+  margin-right: 4px;
+  top: 2px;
 }
 .copy-area {
   background: transparent;
@@ -1015,11 +1021,20 @@ input:focus {
   width: 92%;
   font-weight: 400;
   display: block;
+  outline: none;
 }
 .login_form input:focus {
   border: 1px solid #f5a623;
+  outline: none;
+}
+.login_form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
+.login_form input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+  -webkit-text-fill-color: #333;
+}
 .fa {
   margin-right: 10px;
 }
@@ -1330,6 +1345,7 @@ h6 {
   border-radius: 20.25px;
   height: 30px;
   padding: 0 24px;
+  outline: none;
   font-family: F-Wave-Regular;
 }
 
@@ -1384,4 +1400,59 @@ h6 {
   -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
+}
+
+/* media queries for responsiveness */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .mainHeader #logo {
+    margin-right: 0;
+  }
+  .heroWrapper {
+    height: 1280px;
+  }
+  .hero {
+    height: 600px;
+    width: 100%;
+    /* padding-bottom: 40px; */
+  }
+  .text-box {
+    padding: 2% 5%;
+  }
+  .features {
+    width: 80%;
+    position: absolute;
+    top: 500px;
+  }
+  #sub-title {
+    padding: 0;
+  }
+  .guides-section .card {
+    /* flex: 0 1 calc(50% - 1em); */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header-nav {
+    flex-direction: column;
+    z-index: 2;
+    margin-top: 15px;
+    text-align: right;
+    /* display: none; */
+  }
+  #close-header {
+    display: block;
+    padding: 3vw 1vw;
+    margin-right: 20px;
+    font-size: 3vh;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .features {
+    width: 100%;
+  }
+  .guides-section {
+    /* flex: 1; */
+  }
 }
