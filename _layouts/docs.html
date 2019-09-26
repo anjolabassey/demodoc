@@ -1,62 +1,64 @@
 ---
 layout: docs-default
 ---
+<header class="subHeader">
+  <a class="back" href="{{ site.url }}{{ site.baseurl }}">
+    <i class="fas fa-angle-left"></i><span>Back</span>
+  </a>
+  <select class="header-nav-items"></select>
+  <select class="technology" name="sdk">
+      <option value="">Select Technology</option>
+      {% for p in site.data.sdk.header %}
 
+      <option value="{{ p.identifier }}">{{ p.title }}</option>
+      {% endfor %}
+    </select>
+</header>
 <div class="docContainer" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="left-nav">
-    <a class="nav-title" href="{{ site.url }}{{ site.baseurl }}">
+    <a class="back" href="{{ site.url }}{{ site.baseurl }}">
       <i class="fas fa-angle-left"></i><span>Back</span>
     </a>
 
-    <p id="tech-stack"></p>
+      <select id="technologies" class="technology" name="sdk">
+        <option value="">Select Technology</option>
+        {% for p in site.data.bills.header %}
+
+        <option class="listing" value="{{ p.identifier }}">{{
+          p.title
+        }}</option>
+        {% endfor %}
+      </select>
     
-    <div class="left-nav-items">
 
-    </div>
+    <p id="tech-stack"></p>
 
+    <div class="left-nav-items"></div>
   </div>
 
   <div class="doc-content" itemprop="articleBody">
-    
     {{ content }}
   </div>
 
   <div class="right-nav">
     <p class="nav-title">TECHNOLOGIES</p>
-
-    <!-- <select id="sdk" name="sdk" class="listing">
+    <select class="technology" name="sdk">
       <option value="">Select Technology</option>
-      {% for p in site.posts %} {% if p.layout == "transfer" %}
+      {% for p in site.data.sdk.header %}
 
-      <option value="{{ p.url }}">{{
-        p.title
-      }}</option>
-      {% endif %} {% endfor %}
-    </select> -->
-
-    <select id="technology" name="sdk" class="listing">
-      <option value="">Select Technology</option>
-      {% for p in site.data.sdk.header %} 
-
-      <option value="{{ p.identifier }}">{{
-        p.title
-      }}</option>
-     {% endfor %}
+      <option value="{{ p.identifier }}">{{ p.title }}</option>
+      {% endfor %}
     </select>
 
-    <hr />
+    <div class="hr"><hr /></div>
     <div id="content-table"></div>
 
     {% for item in page.subnav %}
     <a href="{{ item.url }}">{{ item.title }}</a>
     {% endfor %}
   </div>
-
 </div>
 
-  {% include needhelp.html %}
-
-  {% include helpful.html %}
-
+{% include needhelp.html %} {% include helpful.html %}
 
 <div id="inputContainer"></div>

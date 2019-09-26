@@ -22,6 +22,25 @@ $(document).ready(function() {
   user = localStorage.getItem("user");
   businessLogo = localStorage.getItem("logo");
 
+  localStorage.setItem("sdk", "node");
+  localStorage.setItem("features", "transfers");
+
+  $(".listing").filter(function () {
+    console.log("active");
+    $(this).toggle(
+      $(this)
+        .text()
+        .toLowerCase()
+        .indexOf("going live") > -1
+    );
+    // $(this)
+    //   .addClass("active")
+    //   .$(this)
+    //   .text()
+    //   .toLowerCase()
+    //   .indexOf(value) > -1;
+  });
+
  
   // $(".left-nav .listing a:first-child").css("color", "red");
 
@@ -100,7 +119,7 @@ $(document).ready(function() {
 
     $.ajax({
       url:
-        "https://api.github.com/repos/anjolabassey/test-docs/contents/" +
+        "https://api.github.com/repos/anjolabassey/test-docs/contents/v3/" +
         addedUrl,
       type: "get",
       success: function(data) {
@@ -113,6 +132,7 @@ $(document).ready(function() {
         });
 
         $(".doc-content").html(md.render(con));
+        // console.log(md.render(con));
         displayKeys();
         // console.log(md.render(con));
         $(".doc-content H2").attr("id", `h2`);
@@ -129,7 +149,7 @@ $(document).ready(function() {
           }
         });
 
-        $("#content-table").append("<h4>TABLE OF CONTENTS</h4>");
+        $("#content-table").append("<h4 class='nav-title'>TABLE OF CONTENTS</h4>");
         $("<ol class='listing'></ol>")
           .append(nodeNames.join(""))
           .appendTo("#content-table");
@@ -175,6 +195,7 @@ $(document).ready(function() {
 
         
         var left_nav = "<ul class='listing'>";
+        var header_nav = "<select class='hello' name='hello'>";
         pathLinks[feature].forEach(function(item) {
           if (localStorage.getItem("sdk") === null) {
             localStorage.setItem("sdk", "node");
@@ -182,17 +203,26 @@ $(document).ready(function() {
           if (item.identifier == `${localStorage.getItem("sdk")}`) {
 
             left_nav += `<li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
+             header_nav += `<option value="" class='get-content' id='${item.url}'>${item.title}</option>`;
 
             if (item.subfolderitems) {
               var subfolder = item.subfolderitems;
               subfolder.forEach(function(item) {
                 left_nav += `<ul class='sublisting listing'><li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</li></a></ul>`;
+                header_nav += `<option value="" class='get-content' id='${item.url}'>${item.title}</option>`;
               });
             }
           }
         });
 
         $(".left-nav-items").append(left_nav);
+        if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
+          $(".listing").addClass("active");
+        }
+
+        $(".header-nav-items").append(
+          `<select class="" name=""><option value"">${header_nav}</option></select>`
+        );
         if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
           $(".listing").addClass("active");
         }
@@ -250,18 +280,23 @@ $(document).ready(function() {
   
   //  Changing the page content based on the left menu link item clicked on
   $(".left-nav").on("click", ".get-content", function(e) {
+    console.log("dfvgrhtrgfdjknai");
     $("#content-table").html("");
     $(".left-nav-items").html("");
+    $(".header-nav-items").html("");
     e.preventDefault();
     localStorage.setItem("path", $(this).attr("id"));
     console.log(addedUrl);  
-    changeTech("");
+    changeTech(`${localStorage.getItem("path")}`);
   });
 
+
+
   // Changing the technology functionality
-  $("#technology").on("change", function() {
+  $(".technology").on("change", function() {
     $("#content-table").html("");
     $(".left-nav-items").html("");
+    $(".header-nav-items").html("");
     console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
@@ -745,14 +780,8 @@ $(document).ready(function() {
   changeTech("");
 
   // The responsive header navigation
-  if ($("#close-header").text() == "☰") {
-    $("#close-header").text("✖");
-  } else {
-    $("#close-header").text("☰");
-  }
-
-  $("#close-header").click(function () {
-    $(".header-nav").toggle("slow");
+  $("#nav-icon").click(function () {
+    $(".header-nav").toggleClass("responsive");
   })
   
 });
