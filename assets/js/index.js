@@ -26,7 +26,6 @@ $(document).ready(function() {
   localStorage.setItem("features", "transfers");
 
   $(".listing").filter(function () {
-    console.log("active");
     $(this).toggle(
       $(this)
         .text()
@@ -94,7 +93,8 @@ $(document).ready(function() {
       addedUrl = value;
       console.log("right nav clicked " + addedUrl);
     }
-    addedUrl = localStorage.getItem("path");
+    
+    addedUrl = `${localStorage.getItem("path")}`;
 
     if (localStorage.getItem("pathLinks") === null) {
       $.ajax({
@@ -116,11 +116,9 @@ $(document).ready(function() {
         }
       });
     }
-
+    console.log("here " + addedUrl)
     $.ajax({
-      url:
-        "https://api.github.com/repos/anjolabassey/test-docs/contents/v3/" +
-        addedUrl,
+      url: "https://api.github.com/repos/anjolabassey/test-docs/contents/v3/" + addedUrl,
       type: "get",
       success: function(data) {
         // console.log(data);
@@ -195,7 +193,7 @@ $(document).ready(function() {
 
         
         var left_nav = "<ul class='listing'>";
-        var header_nav = "<select class='hello' name='hello'>";
+        var header_nav = "<select id='subheader-nav-menu' class='' name='menu'>";
         pathLinks[feature].forEach(function(item) {
           if (localStorage.getItem("sdk") === null) {
             localStorage.setItem("sdk", "node");
@@ -203,7 +201,7 @@ $(document).ready(function() {
           if (item.identifier == `${localStorage.getItem("sdk")}`) {
 
             left_nav += `<li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
-             header_nav += `<option value="" class='get-content' id='${item.url}'>${item.title}</option>`;
+             header_nav += `<option value="${item.url}" class='get-content' id='${item.url}'>${item.title}</option>`;
 
             if (item.subfolderitems) {
               var subfolder = item.subfolderitems;
@@ -220,9 +218,11 @@ $(document).ready(function() {
           $(".listing").addClass("active");
         }
 
-        $(".header-nav-items").append(
-          `<select class="" name=""><option value"">${header_nav}</option></select>`
-        );
+        $(".header-nav-items").append(header_nav);
+
+        //   .append(
+        //   `<select class="" name=""><option value"">${header_nav}</option></select>`
+        // );
         if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
           $(".listing").addClass("active");
         }
@@ -280,27 +280,33 @@ $(document).ready(function() {
   
   //  Changing the page content based on the left menu link item clicked on
   $(".left-nav").on("click", ".get-content", function(e) {
-    console.log("dfvgrhtrgfdjknai");
+    $("#content-table").html("");
+    $(".left-nav-items").html("");
+    $(".header-nav-items").html("");
+    e.preventDefault();  
+    localStorage.setItem("path", $(this).attr("id").slice(1))
+    changeTech(`${localStorage.getItem("path")}`);
+  });
+
+  $(".header-nav-items").on("change", "#subheader-nav-menu", function (e) {
     $("#content-table").html("");
     $(".left-nav-items").html("");
     $(".header-nav-items").html("");
     e.preventDefault();
-    localStorage.setItem("path", $(this).attr("id"));
-    console.log(addedUrl);  
-    changeTech(`${localStorage.getItem("path")}`);
+    localStorage.setItem("path", this.value.slice(1));
+
+    changeTech(this.value);
+
+    
   });
 
 
-
   // Changing the technology functionality
-  $(".technology").on("change", function() {
+  $(".technology").on("change", function () {
     $("#content-table").html("");
     $(".left-nav-items").html("");
-    $(".header-nav-items").html("");
-    console.log(localStorage.getItem("path"));
     currentTech = localStorage.getItem("path");
     currentTech = currentTech.substring(currentTech.indexOf("/", 1));
-    console.log(currentTech);
     currentTech = this.value + currentTech;
     localStorage.setItem("sdk", this.value);
     localStorage.setItem("path", currentTech);
@@ -783,5 +789,126 @@ $(document).ready(function() {
   $("#nav-icon").click(function () {
     $(".header-nav").toggleClass("responsive");
   })
+
+
+
+
+
+
+  // $.ajax({
+  //   url:
+  //     "https://api.github.com/repos/anjolabassey/test-docs/contents/v3/" +
+  //     addedUrl,
+  //   type: "get",
+  //   success: function(data) {
+  //     // console.log(data);
+  //     let con = b64DecodeUnicode(data.content);
+
+  //     // If you're in the browser, the Remarkable class is already available in the window
+  //     var md = new Remarkable({
+  //       html: true
+  //     });
+
+  //     $(".doc-content").html(md.render(con));
+  //     // console.log(md.render(con));
+  //     displayKeys();
+  //     // console.log(md.render(con));
+  //     $(".doc-content H2").attr("id", `h2`);
+  //     localStorage.setItem("path", addedUrl);
+
+  //     $("pre").addClass("highlight");
+
+  //     (html = $.parseHTML(md.render(con))), (nodeNames = []);
+
+  //     $.each(html, function(i, el) {
+  //       if (el.nodeName == "H2") {
+  //         nodeNames[i] = '<li><a href="#h2">' + el.innerText + "</li></a>";
+  //       }
+  //     });
+
+  //     $("#content-table").append(
+  //       "<h4 class='nav-title'>TABLE OF CONTENTS</h4>"
+  //     );
+  //     $("<ol class='listing'></ol>")
+  //       .append(nodeNames.join(""))
+  //       .appendTo("#content-table");
+
+  //     appendAnchorLinks();
+  //     appendTechStack();
+
+  //     // Append copy buttons to all code sinppets on document ready
+  //     $(".highlight")
+  //       .append(copyButton)
+  //       .click(".copy-btn", function() {
+  //         $("#inputContainer").append(copyArea);
+
+  //         var content = $(this)
+  //           .text()
+  //           .slice(0, -4);
+
+  //         var pub = content.search("npm");
+  //         var sec = content.search("ravepay");
+
+  //         if (pub > 0 || sec > 0) {
+  //           content = content.replace("npm", "newNpm");
+  //           content = content.replace("ravepay", "newRavepay");
+  //         }
+
+  //         $("#copied").val(content);
+  //         var copyText = $("#copied");
+
+  //         copyText.select();
+  //         document.execCommand("copy");
+  //         copyArea.remove();
+  //       });
+
+  //     //  Build out the left navigation
+  //     pathLinks = `${localStorage.getItem("pathLinks")}`;
+  //     pathLinks = JSON.parse(pathLinks);
+  //     if (localStorage.getItem("features") === null) {
+  //       console.log("kjhbv");
+  //       localStorage.setItem("features", "transfers");
+  //     }
+  //     feature = `${localStorage.getItem("features")}`;
+
+  //     var left_nav = "<ul class='listing'>";
+  //     var header_nav = "<select id='subheader-nav-menu' class='' name='menu'>";
+  //     pathLinks[feature].forEach(function(item) {
+  //       if (localStorage.getItem("sdk") === null) {
+  //         localStorage.setItem("sdk", "node");
+  //       }
+  //       if (item.identifier == `${localStorage.getItem("sdk")}`) {
+  //         left_nav += `<li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</a></li>`;
+  //         header_nav += `<option value="${item.url}" class='get-content' id='${item.url}'>${item.title}</option>`;
+
+  //         if (item.subfolderitems) {
+  //           var subfolder = item.subfolderitems;
+  //           subfolder.forEach(function(item) {
+  //             left_nav += `<ul class='sublisting listing'><li><a class='get-content' id='${item.url}' title='Go to ${item.title}'>${item.title}</li></a></ul>`;
+  //             header_nav += `<option value="" class='get-content' id='${item.url}'>${item.title}</option>`;
+  //           });
+  //         }
+  //       }
+  //     });
+
+  //     $(".left-nav-items").append(left_nav);
+  //     if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
+  //       $(".listing").addClass("active");
+  //     }
+
+  //     $(".header-nav-items").append(header_nav);
+
+  //     //   .append(
+  //     //   `<select class="" name=""><option value"">${header_nav}</option></select>`
+  //     // );
+  //     if (`${localStorage.getItem("path")}` == $(this).attr("id")) {
+  //       $(".listing").addClass("active");
+  //     }
+  //   },
+  //   error: function(xhr, textStatus, errorThrown) {
+  //     var errorText = xhr.responseJSON;
+  //     console.log(errorText);
+  //   }
+  // });
   
 });

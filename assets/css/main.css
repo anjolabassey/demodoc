@@ -948,11 +948,11 @@ pre {
   border: 1px solid #637381; 
   text-align: right;
 }
-.header-nav-items {
-  color: #637381; 
-  padding: 7px 10px;  
-  border: 1px solid #637381; 
+#subheader-nav-menu {
+  color: #637381;  
   text-align: right;
+  border: 1px solid #637381;
+  padding: 7px 10px; 
 }
 
 /* copy button styling */
@@ -1504,32 +1504,39 @@ h6 {
     padding: 0 !important;
   }
   .heroWrapper {
-    height: 1050px;
+    height: 1150px;
   }
   .searchBox {
-    width: 250px;
+    width: 200px;
     color: #fef8ee;
   }
+  ::-webkit-input-placeholder {
+   color:transparent;
+}
   .text-box {
     padding: 10px 5px;
     margin-bottom: 60px;
   }
   .button-row {
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     /* display: none; */
+  }
+  .button-row a {
+    margin-top: 10px;
+
   }
   .contentWrapper {
     margin: 0 60px;
   }
 
   .features {
-    width: 96%;
+    width: 90%;
     max-height: 600px;
     overflow-x: auto;
-    top: 605px;
+    top: 635px;
     /* display: none; */
   }
   .feat-row {
@@ -1549,7 +1556,8 @@ h6 {
     padding: 0 50px;
   }
   .footer #text {
-    padding: 0 150px;
+    padding: 0 80px;
+
   }
 
   .right-nav {
@@ -1568,7 +1576,7 @@ h6 {
   .subHeader {
     display: flex;
     justify-content: space-around;
-    padding-top: 5px;
+    padding: 15px 5px;
     background-color: #fef8ee;
     box-shadow: 0 2px #eee;
   }
@@ -1578,40 +1586,64 @@ h6 {
     justify-content: space-around;
     padding-top: 5px;
     background-color: #fef8ee;
-    box-shadow: 0 2px #eee;
+    
   }
 }
 
-@media all and (max-width: 375px) {
+@media all and (max-width: 320px) {
   .page-content,
   .wrapper {
     /* width: 100vh; */
     padding: 0 !important;
   }
+  .mainHeader {
+  justify-content: space-between;
+
+}
   .subHeader {
     display: inline;
   }
+  .hero {
+    height: 750px;
+  }
   .heroWrapper {
     height: 1050px;
+    margin-bottom: 350px;
   }
-  .searchBox {
-    width: 250px;
-    color: #fef8ee;
-  }
+  .mainHeader #logo {
+  width: 80px;
+  /* margin-right: 20px; */
+  margin-top: 29px;
+}
+.searchBox {
+  width: 100px;
+}
+.header-nav a {
+  margin-right: 20px;
+  
+}
+
+  ::-webkit-input-placeholder {
+   color:transparent;
+}
+
   .button-row {
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     /* display: none; */
+  }
+  .button-row a {
+    margin-top: 10px;
   }
 
   .features {
     width: 90%;
     max-height: 600px;
-    overflow-x: auto;
-    top: 615px;
-    display: none;
+    overflow: auto;
+    top: 790px;
+   
   }
   .feat-row {
     flex-direction: column;
