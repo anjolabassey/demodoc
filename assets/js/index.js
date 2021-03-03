@@ -5,8 +5,8 @@ $(document).ready(function() {
   let flwAuthToken;
   let API_publicKey;
   let API_secretKey;
-  let pubKey = "FLWPUBK_TEST-0db01907c1b990c273c365a696c1613d-X";
-  let secKey = "FLWSECK_TEST-624d8f04393b01cac90d02f562b26389-X";
+  let pubKey = API_publicKey;
+  let secKey = API_secretKey;
 
   let getKeys = $("#submit");
   let userDisplay = $("#user_info");
